@@ -9,7 +9,7 @@ urlpatterns = [
     path('patient/<str:pk>/',views.patientDetail, name="patient-detail") ,
     path('patient-create/',views.patientCreate, name="patient-create") ,
     path('<str:pk>/patient-update/',views.patientUpdate, name="patient-update") ,
-    path('patient-delete/<str:pk>/',views.patientDelete, name="patient-delete") ,
+    path('<str:pk>/patient-delete/',views.patientDelete, name="patient-delete") ,
     
 
     #path('doctor/',views.doctorList, name="doctor-list") ,
