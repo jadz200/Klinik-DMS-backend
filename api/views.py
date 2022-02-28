@@ -17,6 +17,7 @@ def apiOverview(request):
         'Create': '/patients/',
         'Update': '/patients/<str:pk>',
         'Delete': '/patients/<str:pk>',
+        'admin/':'shows the admin panel',
     }
     return Response(api_urls)
 
