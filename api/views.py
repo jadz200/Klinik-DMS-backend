@@ -6,7 +6,7 @@ from rest_framework.response import Response
 from .serializers import PatientSerializer
 
 from .models import Patient
-# Create your views here and there.
+# Create your views here.
 
 
 @api_view(['GET'])
