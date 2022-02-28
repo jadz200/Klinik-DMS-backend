@@ -8,7 +8,8 @@ class PatientSerializer(serializers.ModelSerializer):
     class Meta:
         model= Patient
         fields ='__all__'
+        
 class RoleSerializer(serializers.ModelSerializer):
     class Meta:
-        mode= Role
+        model= Role
         fields='__all__'

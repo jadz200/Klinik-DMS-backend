@@ -9,7 +9,7 @@ class Clinic(models.Model):
 
 
 class Role(models.Model):
-    title=models.CharField(max_length=100,null= False)    
+    title=models.CharField(max_length=100,null= False, default="doctor")    
    
 class User(models.Model):
     clinic= models.ForeignKey(Clinic,on_delete=models.CASCADE , null=False)
