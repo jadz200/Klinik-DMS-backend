@@ -12,11 +12,11 @@ urlpatterns = [
     path('<str:pk>/patient-delete/',views.patientDelete, name="patient-delete") ,
     
 
-    #path('doctor/',views.doctorList, name="doctor-list") ,
-    #path('doctor/<str:pk>/',views.doctorDetail, name="doctor-detail") ,
-    #path('doctor-create/',views.doctorCreate, name="doctor-create") ,
-    #path('<str:pk>/doctor-update/',views.doctorUpdate, name="doctor-update") ,
-    #path('doctor-delete/<str:pk>/',views.doctorDelete, name="doctor-delete") ,
+    path('role/',views.roleList, name="role-list") ,
+    path('role/<str:pk>/',views.roleDetail, name="role-detail") ,
+    path('role-create/',views.roleCreate, name="role-create") ,
+    path('<str:pk>/role-update/',views.roleUpdate, name="role-update") ,
+    path('<str:pk>/role-delete/',views.roleDelete, name="role-delete") ,
 
 
 
