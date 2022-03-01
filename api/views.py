@@ -133,14 +133,14 @@ def roleDelete(request, pk):
 
 @api_view(['GET'])
 def clinicList(request):
-    clinic = clinic.objects.all()
+    clinic = Clinic.objects.all()
     serializer = ClinicSerializer(clinic, many=True)
     return Response(serializer.data)
 
 
 @api_view(['GET'])
 def clinicDetail(request, pk):
-    clinic = clinic.objects.get(id=pk)
+    clinic = Clinic.objects.get(id=pk)
     serializer = ClinicSerializer(clinic, many=False)
     return Response(serializer.data)
 
@@ -180,14 +180,14 @@ def clinicDelete(request, pk):
 #User views
 @api_view(['GET'])
 def userList(request):
-    user = user.objects.all()
+    user = User.objects.all()
     serializer = UserSerializer(user, many=True)
     return Response(serializer.data)
 
 
 @api_view(['GET'])
 def userDetail(request, pk):
-    user = user.objects.get(id=pk)
+    user = User.objects.get(id=pk)
     serializer = UserSerializer(user, many=False)
     return Response(serializer.data)
 
