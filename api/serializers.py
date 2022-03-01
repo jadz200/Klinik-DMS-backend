@@ -2,7 +2,7 @@ from dataclasses import field
 from pyexpat import model
 from statistics import mode
 from  rest_framework import serializers
-from .models import Patient, Role
+from .models import *
 
 class PatientSerializer(serializers.ModelSerializer):
     class Meta:
@@ -12,4 +12,14 @@ class PatientSerializer(serializers.ModelSerializer):
 class RoleSerializer(serializers.ModelSerializer):
     class Meta:
         model= Role
+        fields='__all__'
+        
+class ClinicSerializer(serializers.ModelSerializer):
+    class Meta:
+        model= Clinic
+        fields='__all__'
+
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model= User
         fields='__all__'

@@ -23,7 +23,16 @@ def apiOverview(request): #returns all the working urls with their format
         'Role Create': '/api/role-create/',
         'Role Update': '/api/<str:pk>/role-update',
         'Role Delete': '/api/<str:pk>/role-delete',
-        'admin':"see page"
+        'Clinic List': '/api/clinic',
+        'Clinic Detailed view': '/api/clinic/<str:pk>',
+        'Clinic Create': '/api/clinic-create/',
+        'Clinic Update': '/api/<str:pk>/clinic-update',
+        'Clinic Delete': '/api/<str:pk>/clinic-delete',
+        'User List': '/api/user',
+        'User Detailed view': '/api/user/<str:pk>',
+        'User Create': '/api/user-create/',
+        'User Update': '/api/<str:pk>/user-update',
+        'User Delete': '/api/<str:pk>/user-delete',
     }
     return Response(api_urls)
 
@@ -71,7 +80,7 @@ def patientUpdate(request, pk):
 def patientDelete(request, pk):
     patient = Patient.objects.get(id=pk)
     patient.delete()
-    return Response('Deleted')
+    return Response('Deleted Paatient')
 
 #ROLE VIEWS
 
@@ -118,5 +127,99 @@ def roleUpdate(request, pk):
 def roleDelete(request, pk):
     role = Role.objects.get(id=pk)
     role.delete()
-    return Response("Deleted")
+    return Response("Deleted Role")
+
+#Clinic Views
+
+@api_view(['GET'])
+def clinicList(request):
+    clinic = clinic.objects.all()
+    serializer = ClinicSerializer(clinic, many=True)
+    return Response(serializer.data)
+
+
+@api_view(['GET'])
+def clinicDetail(request, pk):
+    clinic = clinic.objects.get(id=pk)
+    serializer = ClinicSerializer(clinic, many=False)
+    return Response(serializer.data)
+
+
+@api_view(['POST'])
+def clinicCreate(request):
+    serializer = ClinicSerializer(data=request.data)
+    print(request.data)
+    print(serializer)
+
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['POST'])
+def clinicUpdate(request, pk):
+    clinic = clinic.objects.get(id=pk)
+    serializer = ClinicSerializer(instance=clinic, data=request.data)
+
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['DELETE'])
+def clinicDelete(request, pk):
+    clinic = clinic.objects.get(id=pk)
+    clinic.delete()
+    return Response('Deleted Clinic')
+
+
+#User views
+@api_view(['GET'])
+def userList(request):
+    user = user.objects.all()
+    serializer = UserSerializer(user, many=True)
+    return Response(serializer.data)
+
+
+@api_view(['GET'])
+def userDetail(request, pk):
+    user = user.objects.get(id=pk)
+    serializer = UserSerializer(user, many=False)
+    return Response(serializer.data)
+
+
+@api_view(['POST'])
+def userCreate(request):
+    serializer = UserSerializer(data=request.data)
+    print(request.data)
+    print(serializer)
+
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['POST'])
+def userUpdate(request, pk):
+    user = user.objects.get(id=pk)
+    serializer = UserSerializer(instance=user, data=request.data)
+
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['DELETE'])
+def userDelete(request, pk):
+    user = user.objects.get(id=pk)
+    user.delete()
+    return Response('Deleted User')
 
