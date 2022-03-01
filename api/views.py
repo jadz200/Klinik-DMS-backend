@@ -8,19 +8,22 @@ from .models import *
 # Create your views here.
 
 #Patient VIEWS
+
+
 @api_view(['GET'])
-def apiOverview(request):
+def apiOverview(request): #returns all the working urls with their format
     api_urls = {
-        'Patient List': '/patient',
-        'Patient Detailed view': '/patient/<str:pk>',
-        'Patient Create': '/patient-create',
-        'Patient Update': '<str:pk>/patient',
-        'Patient Delete': '<str:pk>/patient',
-        'Role List': '/role',
-        'Role Detailed view': '/role/<str:pk>',
-        'Role Create': '/role/',
-        'Role Update': '/<str:pk>/role',
-        'Role Delete': '/<str:pk>/role',
+        'Patient List': '/api/patient',
+        'Patient Detailed view': '/api/patient/<str:pk>',
+        'Patient Create': '/api/patient-create',
+        'Patient Update': '/api/<str:pk>/patient-update',
+        'Patient Delete': '/api/<str:pk>/patient-delete',
+        'Role List': '/api/role',
+        'Role Detailed view': '/api/role/<str:pk>',
+        'Role Create': '/api/role-create/',
+        'Role Update': '/api/<str:pk>/role-update',
+        'Role Delete': '/api/<str:pk>/role-delete',
+        'admin':"see page"
     }
     return Response(api_urls)
 
@@ -68,7 +71,7 @@ def patientUpdate(request, pk):
 def patientDelete(request, pk):
     patient = Patient.objects.get(id=pk)
     patient.delete()
-    return Response('Delete')
+    return Response('Deleted')
 
 #ROLE VIEWS
 
@@ -115,5 +118,5 @@ def roleUpdate(request, pk):
 def roleDelete(request, pk):
     role = Role.objects.get(id=pk)
     role.delete()
-    return Response()
+    return Response("Deleted")
 
