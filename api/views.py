@@ -225,24 +225,24 @@ def userDelete(request, pk):
     return Response('Deleted User')
 
 
-#Role views
+#Room views
 @api_view(['GET'])
-def roleList(request):
-    role = Role.objects.all()
-    serializer = RoleSerializer(role, many=True)
+def roomList(request):
+    room = Room.objects.all()
+    serializer = RoomSerializer(room, many=True)
     return Response(serializer.data)
 
 
 @api_view(['GET'])
-def roleDetail(request, pk):
-    role = Role.objects.get(id=pk)
-    serializer = RoleSerializer(role, many=False)
+def roomDetail(request, pk):
+    room = Room.objects.get(id=pk)
+    serializer = RoomSerializer(room, many=False)
     return Response(serializer.data)
 
 
 @api_view(['POST'])
-def roleCreate(request):
-    serializer = RoleSerializer(data=request.data)
+def roomCreate(request):
+    serializer = RoomSerializer(data=request.data)
     print(request.data)
     print(serializer)
 
@@ -254,9 +254,9 @@ def roleCreate(request):
 
 
 @api_view(['POST'])
-def roleUpdate(request, pk):
-    role = role.objects.get(id=pk)
-    serializer = RoleSerializer(instance=role, data=request.data)
+def roomUpdate(request, pk):
+    room = room.objects.get(id=pk)
+    serializer = RoomSerializer(instance=room, data=request.data)
 
     if serializer.is_valid():
         serializer.save()
@@ -266,7 +266,7 @@ def roleUpdate(request, pk):
 
 
 @api_view(['DELETE'])
-def roleDelete(request, pk):
-    role = role.objects.get(id=pk)
-    role.delete()
-    return Response('Deleted Role')
+def roomDelete(request, pk):
+    room = room.objects.get(id=pk)
+    room.delete()
+    return Response('Deleted Room')
