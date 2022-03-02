@@ -33,7 +33,6 @@ def apiOverview(request): #returns all the working urls with their format
         'User Create': '/api/user-create/',
         'User Update': '/api/<str:pk>/user-update',
         'User Delete': '/api/<str:pk>/user-delete',
-        'admin':'does admin stuff'
     }
     return Response(api_urls)
 
