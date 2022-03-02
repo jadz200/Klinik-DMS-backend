@@ -224,3 +224,49 @@ def userDelete(request, pk):
     user.delete()
     return Response('Deleted User')
 
+
+#Role views
+@api_view(['GET'])
+def roleList(request):
+    role = Role.objects.all()
+    serializer = RoleSerializer(role, many=True)
+    return Response(serializer.data)
+
+
+@api_view(['GET'])
+def roleDetail(request, pk):
+    role = Role.objects.get(id=pk)
+    serializer = RoleSerializer(role, many=False)
+    return Response(serializer.data)
+
+
+@api_view(['POST'])
+def roleCreate(request):
+    serializer = RoleSerializer(data=request.data)
+    print(request.data)
+    print(serializer)
+
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['POST'])
+def roleUpdate(request, pk):
+    role = role.objects.get(id=pk)
+    serializer = RoleSerializer(instance=role, data=request.data)
+
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['DELETE'])
+def roleDelete(request, pk):
+    role = role.objects.get(id=pk)
+    role.delete()
+    return Response('Deleted Role')
