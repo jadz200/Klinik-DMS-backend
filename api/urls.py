@@ -28,5 +28,12 @@ urlpatterns = [
     path('user-create/',views.userCreate, name="user-create") ,
     path('<str:pk>/user-update/',views.userUpdate, name="user-update") ,
     path('<str:pk>/user-delete/',views.userDelete, name="user-delete") ,
+    
+    path('room/',views.roomList, name="room-list") ,
+    path('room/<str:pk>/',views.roomDetail, name="room-detail") ,
+    path('room-create/',views.roomCreate, name="room-create") ,
+    path('<str:pk>/room-update/',views.roomUpdate, name="room-update") ,
+    path('<str:pk>/room-delete/',views.roomDelete, name="room-delete") ,
+    
 ]
  
