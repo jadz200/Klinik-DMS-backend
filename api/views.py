@@ -269,3 +269,49 @@ def roomDelete(request, pk):
     room = room.objects.get(id=pk)
     room.delete()
     return Response('Deleted Room')
+
+#Appointment views
+@api_view(['GET'])
+def appointmentList(request):
+    appointment = Appointment.objects.all()
+    serializer = AppointmentSerializer(appointment, many=True)
+    return Response(serializer.data)
+
+
+@api_view(['GET'])
+def appointmentDetail(request, pk):
+    appointment = Appointment.objects.get(id=pk)
+    serializer = AppointmentSerializer(appointment, many=False)
+    return Response(serializer.data)
+
+
+@api_view(['POST'])
+def appointmentCreate(request):
+    serializer = AppointmentSerializer(data=request.data)
+    print(request.data)
+    print(serializer)
+
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['POST'])
+def appointmentUpdate(request, pk):
+    appointment = appointment.objects.get(id=pk)
+    serializer = AppointmentSerializer(instance=appointment, data=request.data)
+
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['DELETE'])
+def appointmentDelete(request, pk):
+    appointment = appointment.objects.get(id=pk)
+    appointment.delete()
+    return Response('Deleted Appointmemt')

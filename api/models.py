@@ -12,8 +12,8 @@ class Role(models.Model):
     title=models.CharField(max_length=100,null= False, default="doctor")    
    
 class User(models.Model):
-    clinic= models.ForeignKey(Clinic,on_delete=models.CASCADE , null=False)
-    roleId=models.ForeignKey(Role,on_delete=models.CASCADE)
+    clinicID= models.ForeignKey(Clinic,on_delete=models.CASCADE , null=False)
+    roleID=models.ForeignKey(Role,on_delete=models.CASCADE)
     first_name= models.CharField(max_length=20 ,  null = False)
     last_name= models.CharField(max_length=20,  null = False)
     phone = models.IntegerField(null=False,  unique=True )
@@ -33,18 +33,18 @@ class JournalEntryType(models.Model):
 
 class PaymentJournal(models.Model):
     patientID=models.ForeignKey(Patient, null= False,on_delete=models.CASCADE)
-    journal_entry_type=models.ForeignKey(JournalEntryType, null=False,on_delete=models.CASCADE)
+    journal_entry_typeID=models.ForeignKey(JournalEntryType, null=False,on_delete=models.CASCADE)
     clinicID=models.ForeignKey(Clinic,null=False,on_delete=models.CASCADE)
     userID=models.ForeignKey(User,null=False, on_delete=models.CASCADE)
     amount=MoneyField(decimal_places=2,default=0, default_currency='USD', max_digits=12,)
     reason=models.CharField(max_length=255)
 
 class Room(models.Model):
-    clinic= models.ForeignKey(Clinic,on_delete=models.CASCADE,null=False)
+    clinicID= models.ForeignKey(Clinic,on_delete=models.CASCADE,null=False)
     title= models.CharField(max_length=100, null=False )
 
 
-class Appointmemt(models.Model):
+class Appointment(models.Model):
     patientID=models.ForeignKey(Patient, on_delete=models.CASCADE)
     createdbyID=models.ForeignKey(User,default=1,on_delete=models.CASCADE, null=False,related_name="createdby")
     doctorID=models.ForeignKey(User, on_delete=models.CASCADE,null=True,related_name="doctor")
@@ -56,17 +56,17 @@ class Appointmemt(models.Model):
 class Visit(models.Model):
     patientID=models.ForeignKey(Patient, on_delete=models.CASCADE,null=False,default=1)
     doctorID=models.ForeignKey(User, on_delete=models.CASCADE,null=True)
-    room=models.ForeignKey(Room, on_delete=models.CASCADE,null=False)
+    roomID=models.ForeignKey(Room, on_delete=models.CASCADE,null=False)
     date=models.DateTimeField(null=False ,default=1)
     cost=MoneyField(decimal_places=2,default=0, default_currency='USD', max_digits=12,)
     comments= models.CharField(max_length=512,  null = True )
 
 class Operation(models.Model):
-    clinic= models.ForeignKey(Clinic,on_delete=models.CASCADE , null=False)
+    clinicID= models.ForeignKey(Clinic,on_delete=models.CASCADE , null=False)
     title= models.CharField(max_length=100, null=False )
     cost=MoneyField(decimal_places=2,default=0, default_currency='USD', max_digits=12,)
     
 class Visit_Operation(models.Model):
-    visit= models.ForeignKey(Visit,on_delete=models.CASCADE , null=False)
-    operation= models.ForeignKey(Operation,on_delete=models.CASCADE , null=False)
+    visitID= models.ForeignKey(Visit,on_delete=models.CASCADE , null=False)
+    operationID= models.ForeignKey(Operation,on_delete=models.CASCADE , null=False)
     cost=MoneyField(decimal_places=2,default=0, default_currency='USD', max_digits=12,)

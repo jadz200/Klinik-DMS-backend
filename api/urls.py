@@ -35,5 +35,11 @@ urlpatterns = [
     path('<str:pk>/room-update/',views.roomUpdate, name="room-update") ,
     path('<str:pk>/room-delete/',views.roomDelete, name="room-delete") ,
     
+    
+    path('appointment/',views.appointmentList, name="appointment-list") ,
+    path('appointment/<str:pk>/',views.appointmentDetail, name="appointment-detail") ,
+    path('appointment-create/',views.appointmentCreate, name="appointment-create") ,
+    path('<str:pk>/appointment-update/',views.appointmentUpdate, name="appointment-update") ,
+    path('<str:pk>/appointment-delete/',views.appointmentDelete, name="appointment-delete") ,
 ]
  
