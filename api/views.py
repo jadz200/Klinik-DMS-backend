@@ -54,8 +54,6 @@ def patientDetail(request, pk):
 @api_view(['POST'])
 def patientCreate(request):
     serializer = PatientSerializer(data=request.data)
-    print(request.data)
-    print(serializer)
 
     if serializer.is_valid():
         serializer.save()
@@ -101,8 +99,6 @@ def roleDetail(request, pk):
 @api_view(['POST'])
 def roleCreate(request):
     serializer = RoleSerializer(data=request.data)
-    print(request.data)
-    print(serializer)
 
     if serializer.is_valid():
         serializer.save()
@@ -148,8 +144,6 @@ def clinicDetail(request, pk):
 @api_view(['POST'])
 def clinicCreate(request):
     serializer = ClinicSerializer(data=request.data)
-    print(request.data)
-    print(serializer)
 
     if serializer.is_valid():
         serializer.save()
@@ -195,8 +189,6 @@ def userDetail(request, pk):
 @api_view(['POST'])
 def userCreate(request):
     serializer = UserSerializer(data=request.data)
-    print(request.data)
-    print(serializer)
 
     if serializer.is_valid():
         serializer.save()
@@ -242,8 +234,6 @@ def roomDetail(request, pk):
 @api_view(['POST'])
 def roomCreate(request):
     serializer = RoomSerializer(data=request.data)
-    print(request.data)
-    print(serializer)
 
     if serializer.is_valid():
         serializer.save()
@@ -288,8 +278,6 @@ def appointmentDetail(request, pk):
 @api_view(['POST'])
 def appointmentCreate(request):
     serializer = AppointmentSerializer(data=request.data)
-    print(request.data)
-    print(serializer)
 
     if serializer.is_valid():
         serializer.save()
@@ -315,3 +303,226 @@ def appointmentDelete(request, pk):
     appointment = appointment.objects.get(id=pk)
     appointment.delete()
     return Response('Deleted Appointmemt')
+
+#JournalEntryType views
+@api_view(['GET'])
+def journalEntryTypeList(request):
+    journalEntryType = JournalEntryType.objects.all()
+    serializer = JournalEntryTypeSerializer(journalEntryType, many=True)
+    return Response(serializer.data)
+
+
+@api_view(['GET'])
+def journalEntryTypeDetail(request, pk):
+    journalEntryType = JournalEntryType.objects.get(id=pk)
+    serializer = JournalEntryTypeSerializer(journalEntryType, many=False)
+    return Response(serializer.data)
+
+
+@api_view(['POST'])
+def journalEntryTypeCreate(request):
+    serializer = JournalEntryTypeSerializer(data=request.data)
+
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['POST'])
+def journalEntryTypeUpdate(request, pk):
+    journalEntryType = journalEntryType.objects.get(id=pk)
+    serializer = JournalEntryTypeSerializer(instance=journalEntryType, data=request.data)
+
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['DELETE'])
+def journalEntryTypeDelete(request, pk):
+    journalEntryType = journalEntryType.objects.get(id=pk)
+    journalEntryType.delete()
+    return Response('Deleted Journal Entry Type')
+
+#PaymentJournal views
+@api_view(['GET'])
+def paymentJournalList(request):
+    paymentJournal = PaymentJournal.objects.all()
+    serializer = PaymentJournalSerializer(paymentJournal, many=True)
+    return Response(serializer.data)
+
+
+@api_view(['GET'])
+def paymentJournalDetail(request, pk):
+    paymentJournal = PaymentJournal.objects.get(id=pk)
+    serializer = PaymentJournalSerializer(paymentJournal, many=False)
+    return Response(serializer.data)
+
+
+@api_view(['POST'])
+def paymentJournalCreate(request):
+    serializer = PaymentJournalSerializer(data=request.data)
+
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['POST'])
+def paymentJournalUpdate(request, pk):
+    paymentJournal = paymentJournal.objects.get(id=pk)
+    serializer = PaymentJournalSerializer(instance=paymentJournal, data=request.data)
+
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['DELETE'])
+def paymentJournalDelete(request, pk):
+    paymentJournal = paymentJournal.objects.get(id=pk)
+    paymentJournal.delete()
+    return Response('Deleted Payment Journal')
+
+
+
+#Visit views
+@api_view(['GET'])
+def visitList(request):
+    visit = Visit.objects.all()
+    serializer = VisitSerializer(visit, many=True)
+    return Response(serializer.data)
+
+
+@api_view(['GET'])
+def visitDetail(request, pk):
+    visit = Visit.objects.get(id=pk)
+    serializer = VisitSerializer(visit, many=False)
+    return Response(serializer.data)
+
+
+@api_view(['POST'])
+def visitCreate(request):
+    serializer = VisitSerializer(data=request.data)
+
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['POST'])
+def visitUpdate(request, pk):
+    visit = visit.objects.get(id=pk)
+    serializer = VisitSerializer(instance=visit, data=request.data)
+
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['DELETE'])
+def visitDelete(request, pk):
+    visit = visit.objects.get(id=pk)
+    visit.delete()
+    return Response('Deleted Visit')
+#Operation views
+@api_view(['GET'])
+def operationList(request):
+    operation = Operation.objects.all()
+    serializer = OperationSerializer(operation, many=True)
+    return Response(serializer.data)
+
+
+@api_view(['GET'])
+def operationDetail(request, pk):
+    operation = Operation.objects.get(id=pk)
+    serializer = OperationSerializer(operation, many=False)
+    return Response(serializer.data)
+
+
+@api_view(['POST'])
+def operationCreate(request):
+    serializer = OperationSerializer(data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['POST'])
+def operationUpdate(request, pk):
+    operation = operation.objects.get(id=pk)
+    serializer = OperationSerializer(instance=operation, data=request.data)
+
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['DELETE'])
+def operationDelete(request, pk):
+    operation = operation.objects.get(id=pk)
+    operation.delete()
+    return Response('Deleted Operation')
+
+
+#Visit_Operation views
+@api_view(['GET'])
+def visitOperationList(request):
+    visit_Operation = Visit_Operation.objects.all()
+    serializer = Visit_OperationSerializer(visit_Operation, many=True)
+    return Response(serializer.data)
+
+
+@api_view(['GET'])
+def visitOperationDetail(request, pk):
+    visit_Operation = Visit_Operation.objects.get(id=pk)
+    serializer = Visit_OperationSerializer(visit_Operation, many=False)
+    return Response(serializer.data)
+
+
+@api_view(['POST'])
+def visitOperationCreate(request):
+    serializer = Visit_OperationSerializer(data=request.data)
+    print(request.data)
+    print(serializer)
+
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['POST'])
+def visitOperationUpdate(request, pk):
+    visit_Operation = visit_Operation.objects.get(id=pk)
+    serializer = Visit_OperationSerializer(instance=visit_Operation, data=request.data)
+
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['DELETE'])
+def visitOperationDelete(request, pk):
+    visit_Operation = visit_Operation.objects.get(id=pk)
+    visit_Operation.delete()
+    return Response('Deleted Visit_Operation')

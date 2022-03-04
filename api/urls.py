@@ -35,11 +35,40 @@ urlpatterns = [
     path('<str:pk>/room-update/',views.roomUpdate, name="room-update") ,
     path('<str:pk>/room-delete/',views.roomDelete, name="room-delete") ,
     
-    
     path('appointment/',views.appointmentList, name="appointment-list") ,
     path('appointment/<str:pk>/',views.appointmentDetail, name="appointment-detail") ,
     path('appointment-create/',views.appointmentCreate, name="appointment-create") ,
     path('<str:pk>/appointment-update/',views.appointmentUpdate, name="appointment-update") ,
     path('<str:pk>/appointment-delete/',views.appointmentDelete, name="appointment-delete") ,
+
+    path('journalEntryType/',views.journalEntryTypeList, name="journalEntryType-list") ,
+    path('journalEntryType/<str:pk>/',views.journalEntryTypeDetail, name="journalEntryType-detail") ,
+    path('journalEntryType-create/',views.journalEntryTypeCreate, name="journalEntryType-create") ,
+    path('<str:pk>/journalEntryType-update/',views.journalEntryTypeUpdate, name="journalEntryType-update") ,
+    path('<str:pk>/journalEntryType-delete/',views.journalEntryTypeDelete, name="journalEntryType-delete") ,
+
+    path('paymentJournal/',views.paymentJournalList, name="paymentJournal-list") ,
+    path('paymentJournal/<str:pk>/',views.paymentJournalDetail, name="paymentJournal-detail") ,
+    path('paymentJournal-create/',views.paymentJournalCreate, name="paymentJournal-create") ,
+    path('<str:pk>/paymentJournal-update/',views.paymentJournalUpdate, name="paymentJournal-update") ,
+    path('<str:pk>/paymentJournal-delete/',views.paymentJournalDelete, name="paymentJournal-delete") ,
+    
+    path('visit/',views.visitList, name="visit-list") ,
+    path('visit/<str:pk>/',views.visitDetail, name="visit-detail") ,
+    path('visit-create/',views.visitCreate, name="visit-create") ,
+    path('<str:pk>/visit-update/',views.visitUpdate, name="visit-update") ,
+    path('<str:pk>/visit-delete/',views.visitDelete, name="visit-delete") ,
+    
+    path('operation/',views.operationList, name="operation-list") ,
+    path('operation/<str:pk>/',views.operationDetail, name="operation-detail") ,
+    path('operation-create/',views.operationCreate, name="operation-create") ,
+    path('<str:pk>/operation-update/',views.operationUpdate, name="operation-update") ,
+    path('<str:pk>/operation-delete/',views.operationDelete, name="operation-delete") ,
+    
+    path('visitOperation/',views.visitOperationList, name="visitOperation-list") ,
+    path('visitOperation/<str:pk>/',views.visitOperationDetail, name="visitOperation-detail") ,
+    path('visitOperation-create/',views.visitOperationCreate, name="visitOperation-create") ,
+    path('<str:pk>/visitOperation-update/',views.visitOperationUpdate, name="visitOperation-update") ,
+    path('<str:pk>/visitOperation-delete/',views.visitOperationDelete, name="visitOperation-delete") ,
 ]
  
