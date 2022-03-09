@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-1_r-xjm8eo)+#1%uv)4cn%m_dp=38h#7!m$1wmdbeg!k1qs%xi
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False #changed when hosted in heroku
 
-ALLOWED_HOSTS = ["klinik-dms-backend.herokuapp.com","127.0.0.1","http://localhost:3000","klinic-dms.netlify.app"]
+ALLOWED_HOSTS = ["klinik-dms-backend.herokuapp.com","127.0.0.1","localhost","klinic-dms.netlify.app"]
 
 
 # Application definition
