@@ -9,7 +9,11 @@ class Clinic(models.Model):
 
 
 class Role(models.Model):
-    title=models.CharField(max_length=100,null= False, default="doctor")    
+    title=models.CharField(max_length=100,null= False, default="doctor")  
+    
+    def __str__(self):
+        return self.title
+  
    
 class User(models.Model):
     clinicID= models.ForeignKey(Clinic,on_delete=models.CASCADE , null=False)
@@ -21,13 +25,17 @@ class User(models.Model):
     
     def __str__(self):
         return self.first_name+" "+self.last_name
+
 class Patient(models.Model):
     first_name= models.CharField(max_length=20 ,  null = False)
     last_name= models.CharField(max_length=20,  null = False)
     phone = models.IntegerField(null=False,  unique=True )
     mail= models.EmailField(max_length=30 , null = False , blank = False)
     address=models.CharField(max_length=50, null=False, default="") 
-
+    
+    def __str__(self):
+        return self.first_name+" "+self.last_name
+    
 class JournalEntryType(models.Model):
     title=models.CharField(max_length=255)
 

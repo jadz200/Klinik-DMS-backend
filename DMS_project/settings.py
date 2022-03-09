@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-1_r-xjm8eo)+#1%uv)4cn%m_dp=38h#7!m$1wmdbeg!k1qs%xi
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False #changed when hosted in heroku
 
-ALLOWED_HOSTS = ["klinik-dms-backend.herokuapp.com","127.0.0.1"]
+ALLOWED_HOSTS = ["klinik-dms-backend.herokuapp.com","127.0.0.1","localhost:3000","klinic-dms.netlify.app"]
 
 
 # Application definition
@@ -151,3 +151,9 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    )
+}

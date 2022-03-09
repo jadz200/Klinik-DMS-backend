@@ -3,12 +3,11 @@ from django.http import JsonResponse
 from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
+from rest_framework.permissions import IsAdminUser
 from .serializers import *
 from .models import *
+from rest_framework import generics
 # Create your views here.
-
-#Patient VIEWS
-
 
 @api_view(['GET'])
 def apiOverview(request): #returns all the working urls with their format
@@ -36,52 +35,18 @@ def apiOverview(request): #returns all the working urls with their format
     }
     return Response(api_urls)
 
+#Patient VIEWS
+class patientCreateList(generics.ListCreateAPIView):
+    permission_classes =[]
+    queryset = Patient.objects.all()
+    serializer_class = PatientSerializer
+    
 
-@api_view(['GET'])
-def patientList(request):
-    patient = Patient.objects.all()
-    serializer = PatientSerializer(patient, many=True)
-    return Response(serializer.data)
-
-
-@api_view(['GET'])
-def patientDetail(request, pk):
-    patient = Patient.objects.get(id=pk)
-    serializer = PatientSerializer(patient, many=False)
-    return Response(serializer.data)
-
-
-@api_view(['POST'])
-def patientCreate(request):
-    serializer = PatientSerializer(data=request.data)
-
-    if serializer.is_valid():
-        serializer.save()
-        return Response(serializer.data, status=status.HTTP_201_CREATED)
-
-    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-
-@api_view(['POST'])
-def patientUpdate(request, pk):
-    patient = Patient.objects.get(id=pk)
-    serializer = PatientSerializer(instance=patient, data=request.data)
-
-    if serializer.is_valid():
-        serializer.save()
-        return Response(serializer.data, status=status.HTTP_201_CREATED)
-
-    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-
-@api_view(['DELETE'])
-def patientDelete(request, pk):
-    patient = Patient.objects.get(id=pk)
-    patient.delete()
-    return Response('Deleted Paatient')
+class patientRetrieveUpdateDelete(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Patient.objects.all()
+    serializer_class = PatientSerializer
 
 #ROLE VIEWS
-
 @api_view(['GET'])
 def roleList(request):
     role =  Role.objects.all()
