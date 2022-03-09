@@ -49,7 +49,9 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
 
     "whitenoise.middleware.WhiteNoiseMiddleware",
-
+    
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',    
 
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -157,3 +159,6 @@ REST_FRAMEWORK = {
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     )
 }
+CORS_ALLOWED_ORIGINS = [
+    'http://localhost:3030',
+]
