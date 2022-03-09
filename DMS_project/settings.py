@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 
 from pathlib import Path
 import os
+import dotenv 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -21,7 +22,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-1_r-xjm8eo)+#1%uv)4cn%m_dp=38h#7!m$1wmdbeg!k1qs%xi'
+
+dotenv_file = os.path.join(BASE_DIR, ".env")
+if os.path.isfile(dotenv_file):
+    dotenv.load_dotenv(dotenv_file)
+
+SECRET_KEY = os.environ['SECRET_KEY'] 
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False #changed when hosted in heroku
@@ -89,10 +95,10 @@ DATABASES = {
     'default': {
 
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'DMS',
-        'USER': 'postgres',
-        'PASSWORD': 'E@^KT3Qn!Cf:(}3Y',
-        'HOST': 'localhost',
+        'NAME': 'df63f293gs7hpk',
+        'USER': 'wcukbjbfbzuxag',
+        'PASSWORD': os.environ['HEROKU_PASS'] ,
+        'HOST': 'ec2-35-175-68-90.compute-1.amazonaws.com',
         'PORT': '5432',
 
     }
@@ -102,14 +108,6 @@ DATABASES = {
 import dj_database_url 
 db_from_env =dj_database_url.config(conn_max_age=600)
 DATABASES['default'].update(db_from_env)
-
-#DATABASES = {
-#    'default': {
-#        'ENGINE': 'django.db.backends.sqlite3',
-#        'NAME': BASE_DIR / 'db.sqlite3',
-#    }
-#}
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators

@@ -1,8 +1,12 @@
 from django.urls import path
 from . import views
+from rest_framework_simplejwt.views import (TokenRefreshView, TokenObtainPairView)
 from rest_framework.urlpatterns import format_suffix_patterns
 urlpatterns = [
     path('',views.apiOverview, name="api-overview") ,
+    
+    path('token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     
     path('patient/',views.patientCreateList.as_view(), name="patient-list") ,
     path('patient/<str:pk>/',views.patientRetrieveUpdateDelete.as_view(), name="patient-detail") ,
