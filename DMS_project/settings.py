@@ -95,11 +95,11 @@ DATABASES = {
     'default': {
 
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'df63f293gs7hpk',
-        'USER': 'wcukbjbfbzuxag',
-        'PASSWORD': os.environ['HEROKU_PASS'] ,
-        'HOST': 'ec2-35-175-68-90.compute-1.amazonaws.com',
-        'PORT': '5432',
+        'NAME': os.environ['DB_NAME'],
+        'USER': os.environ['DB_USER'],
+        'PASSWORD': os.environ['DB_PASSWORD'] ,
+        'HOST': os.environ['DB_HOST'],
+        'PORT': os.environ['DB_PORT'],
 
     }
 
