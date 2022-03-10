@@ -1,11 +1,10 @@
 from django.shortcuts import render
-from django.http import JsonResponse
-from rest_framework import status
+from rest_framework import status, generics
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
+from rest_framework.permissions import *
 from .serializers import *
 from .models import *
-from rest_framework import generics
 # Create your views here.
 
 @api_view(['GET'])
@@ -36,7 +35,7 @@ def apiOverview(request): #returns all the working urls with their format
 
 #Patient VIEWS
 class patientCreateList(generics.ListCreateAPIView):
-    permission_classes =[]
+    permission_classes = [IsAuthenticated]
     queryset = Patient.objects.all()
     serializer_class = PatientSerializer
     
