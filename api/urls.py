@@ -17,9 +17,9 @@ urlpatterns = [
 
     path('role/',views.roleList, name="role-list") ,
     path('role/<str:pk>/',views.roleDetail, name="role-detail") ,
-    path('role-create/',views.roleCreate, name="role-create") ,
-    path('<str:pk>/role-update/',views.roleUpdate, name="role-update") ,
-    path('<str:pk>/role-delete/',views.roleDelete, name="role-delete") ,
+    path('role/create/',views.roleCreate, name="role-create") ,
+    path('role/<str:pk>/update/',views.roleUpdate, name="role-update") ,
+    path('role/<str:pk>/delete/',views.roleDelete, name="role-delete") ,
 
     path('clinic/',views.clinicList, name="clinic-list") ,
     path('clinic/<str:pk>/',views.clinicDetail, name="clinic-detail") ,
@@ -39,11 +39,11 @@ urlpatterns = [
     path('room/<str:pk>/update/',views.roomUpdate, name="room-update") ,
     path('room/<str:pk>/delete/',views.roomDelete, name="room-delete") ,
     
-    path('appointment/',views.appointmentList, name="appointment-list") ,
-    path('appointment/<str:pk>/',views.appointmentDetail, name="appointment-detail") ,
-    path('appointment/create/',views.appointmentCreate, name="appointment-create") ,
-    path('appointement/<str:pk>/update/',views.appointmentUpdate, name="appointment-update") ,
-    path('appointement/<str:pk>/delete/',views.appointmentDelete, name="appointment-delete") ,
+    path('appointment/',views.appointmentCreateList.as_view(), name="appointment-list") ,
+    path('appointment/<str:pk>/',views.appointmentRetrieveUpdateDelete.as_view(), name="appointment-detail") ,
+    path('appointment/create/',views.appointmentCreateList.as_view(), name="appointment-create") ,
+    path('appointment/<str:pk>/update/',views.appointmentRetrieveUpdateDelete.as_view(), name="appointment-update") ,
+    path('appointment/<str:pk>/delete/',views.appointmentRetrieveUpdateDelete.as_view(), name="appointment-delete") ,
 
     path('journalEntryType/',views.journalEntryTypeList, name="journalEntryType-list") ,
     path('journalEntryType/<str:pk>/',views.journalEntryTypeDetail, name="journalEntryType-detail") ,

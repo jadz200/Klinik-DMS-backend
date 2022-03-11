@@ -10,32 +10,12 @@ from .models import *
 @api_view(['GET'])
 def apiOverview(request): #returns all the working urls with their format
     api_urls = {
-        'Patient List': '/api/patient',
-        'Patient Detailed view': '/api/patient/<str:pk>',
-        'Patient Create': '/api/patient-create',
-        'Patient Update': '/api/<str:pk>/patient-update',
-        'Patient Delete': '/api/<str:pk>/patient-delete',
-        'Role List': '/api/role',
-        'Role Detailed view': '/api/role/<str:pk>',
-        'Role Create': '/api/role-create/',
-        'Role Update': '/api/<str:pk>/role-update',
-        'Role Delete': '/api/<str:pk>/role-delete',
-        'Clinic List': '/api/clinic',
-        'Clinic Detailed view': '/api/clinic/<str:pk>',
-        'Clinic Create': '/api/clinic-create/',
-        'Clinic Update': '/api/<str:pk>/clinic-update',
-        'Clinic Delete': '/api/<str:pk>/clinic-delete',
-        'User List': '/api/user',
-        'User Detailed view': '/api/user/<str:pk>',
-        'User Create': '/api/user-create/',
-        'User Update': '/api/<str:pk>/user-update',
-        'User Delete': '/api/<str:pk>/user-delete',
+        "This ":"is the base"
     }
     return Response(api_urls)
 
 #Patient VIEWS
 class patientCreateList(generics.ListCreateAPIView):
-    permission_classes = [IsAuthenticated]
     queryset = Patient.objects.all()
     serializer_class = PatientSerializer
     
@@ -224,48 +204,16 @@ def roomDelete(request, pk):
     return Response('Deleted Room')
 
 #Appointment views
-@api_view(['GET'])
-def appointmentList(request):
-    appointment = Appointment.objects.all()
-    serializer = AppointmentSerializer(appointment, many=True)
-    return Response(serializer.data)
 
+class appointmentCreateList(generics.ListCreateAPIView):
+    queryset = Appointment.objects.all()
+    serializer_class = AppointmentSerializer
+    
 
-@api_view(['GET'])
-def appointmentDetail(request, pk):
-    appointment = Appointment.objects.get(id=pk)
-    serializer = AppointmentSerializer(appointment, many=False)
-    return Response(serializer.data)
-
-
-@api_view(['POST'])
-def appointmentCreate(request):
-    serializer = AppointmentSerializer(data=request.data)
-
-    if serializer.is_valid():
-        serializer.save()
-        return Response(serializer.data, status=status.HTTP_201_CREATED)
-
-    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-
-@api_view(['POST'])
-def appointmentUpdate(request, pk):
-    appointment = appointment.objects.get(id=pk)
-    serializer = AppointmentSerializer(instance=appointment, data=request.data)
-
-    if serializer.is_valid():
-        serializer.save()
-        return Response(serializer.data, status=status.HTTP_201_CREATED)
-
-    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-
-@api_view(['DELETE'])
-def appointmentDelete(request, pk):
-    appointment = appointment.objects.get(id=pk)
-    appointment.delete()
-    return Response('Deleted Appointmemt')
+class appointmentRetrieveUpdateDelete(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Appointment.objects.all()
+    serializer_class = AppointmentSerializer
+    
 
 #JournalEntryType views
 @api_view(['GET'])

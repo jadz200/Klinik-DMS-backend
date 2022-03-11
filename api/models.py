@@ -1,11 +1,15 @@
 from re import T
 from django.db import models
 from djmoney.models.fields import MoneyField
+from django.contrib.auth.models import BaseUserManager
 from datetime import datetime    
 
 # Create your models here.
 class Clinic(models.Model):
     clinic_name = models.CharField(max_length=10, null=False)
+    
+    def __str__(self):
+        return self.clinic_name
 
 
 class Role(models.Model):
@@ -22,14 +26,13 @@ class User(models.Model):
     last_name= models.CharField(max_length=20,  null = False)
     phone = models.IntegerField(null=False,  unique=True )
     mail= models.EmailField(max_length=30 , null = False , blank = False)
-    
     def __str__(self):
         return self.first_name+" "+self.last_name
 
 class Patient(models.Model):
     first_name= models.CharField(max_length=20 ,  null = False)
     last_name= models.CharField(max_length=20,  null = False)
-    phone = models.IntegerField(null=False,  unique=True )
+    phone = models.IntegerField(null=False)
     mail= models.EmailField(max_length=30 , null = False , blank = False)
     address=models.CharField(max_length=50, null=False, default="") 
     
@@ -47,10 +50,12 @@ class PaymentJournal(models.Model):
     amount=MoneyField(decimal_places=2,default=0, default_currency='USD', max_digits=12,)
     reason=models.CharField(max_length=255)
 
+
 class Room(models.Model):
     clinicID= models.ForeignKey(Clinic,on_delete=models.CASCADE,null=False)
     title= models.CharField(max_length=100, null=False )
-
+    def __str__(self):
+        return self.title
 
 class Appointment(models.Model):
     patientID=models.ForeignKey(Patient, on_delete=models.CASCADE)
@@ -61,6 +66,9 @@ class Appointment(models.Model):
     duration= models.IntegerField(null=False, default=0)
     reason=models.CharField(max_length=255, null=False,default="")
     
+    def __str__(self):
+        return self.date +" "+self.patientID+" "+self.doctorID
+
 class Visit(models.Model):
     patientID=models.ForeignKey(Patient, on_delete=models.CASCADE,null=False,default=1)
     doctorID=models.ForeignKey(User, on_delete=models.CASCADE,null=True)
@@ -74,7 +82,11 @@ class Operation(models.Model):
     title= models.CharField(max_length=100, null=False )
     cost=MoneyField(decimal_places=2,default=0, default_currency='USD', max_digits=12,)
     
+    def __str__(self):
+        return self.title
+    
 class Visit_Operation(models.Model):
     visitID= models.ForeignKey(Visit,on_delete=models.CASCADE , null=False)
     operationID= models.ForeignKey(Operation,on_delete=models.CASCADE , null=False)
     cost=MoneyField(decimal_places=2,default=0, default_currency='USD', max_digits=12,)
+    
