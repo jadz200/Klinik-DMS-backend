@@ -24,7 +24,7 @@ class User(models.Model):
     roleID=models.ForeignKey(Role,on_delete=models.CASCADE)
     first_name= models.CharField(max_length=20 ,  null = False)
     last_name= models.CharField(max_length=20,  null = False)
-    phone = models.IntegerField(null=False,  unique=True )
+    phone = models.CharField(null=False,max_length=100)
     mail= models.EmailField(max_length=30 , null = False , blank = False)
     def __str__(self):
         return self.first_name+" "+self.last_name
@@ -32,7 +32,7 @@ class User(models.Model):
 class Patient(models.Model):
     first_name= models.CharField(max_length=20 ,  null = False)
     last_name= models.CharField(max_length=20,  null = False)
-    phone = models.IntegerField(null=False)
+    phone = models.CharField(null=False,max_length=100)
     mail= models.EmailField(max_length=30 , null = False , blank = False)
     address=models.CharField(max_length=50, null=False, default="") 
     
@@ -62,7 +62,7 @@ class Appointment(models.Model):
     createdbyID=models.ForeignKey(User,default=1,on_delete=models.CASCADE, null=False,related_name="createdby")
     doctorID=models.ForeignKey(User, on_delete=models.CASCADE,null=True,related_name="doctor")
     roomID=models.ForeignKey(Room, on_delete=models.CASCADE, null=True)
-    date=models.DateTimeField(null=False,default=datetime.now())
+    date=models.DateTimeField(null=False,default=datetime(2022, 4, 9, 18, 43, 14, 109427))
     duration= models.IntegerField(null=False, default=0)
     reason=models.CharField(max_length=255, null=False,default="")
     
@@ -73,7 +73,7 @@ class Visit(models.Model):
     patientID=models.ForeignKey(Patient, on_delete=models.CASCADE,null=False,default=1)
     doctorID=models.ForeignKey(User, on_delete=models.CASCADE,null=True)
     roomID=models.ForeignKey(Room, on_delete=models.CASCADE,null=False)
-    date=models.DateTimeField(null=False ,default=1)
+    date=models.DateTimeField(null=False ,default=datetime(2022, 4, 9, 18, 43, 14, 109427))
     cost=MoneyField(decimal_places=2,default=0, default_currency='USD', max_digits=12,)
     comments= models.CharField(max_length=512,  null = True )
 
