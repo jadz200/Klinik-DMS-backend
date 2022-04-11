@@ -74,5 +74,12 @@ urlpatterns = [
     path('visitOperation/<str:pk>/',        views.visitOperationRetrieveUpdateDelete.as_view(), name="visitOperation-detail") ,
     path('visitOperation/<str:pk>/update/', views.visitOperationRetrieveUpdateDelete.as_view(), name="visitOperation-update") ,
     path('visitOperation/<str:pk>/delete/', views.visitOperationRetrieveUpdateDelete.as_view(), name="visitOperation-delete") ,
+
+
+    path('patient/<str:pk>/visits', views.userVisits.as_view(), name="user visits"),
+
+
+
+
 ]
 urlpatterns = format_suffix_patterns(urlpatterns)

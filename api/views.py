@@ -7,6 +7,10 @@ from .serializers import *
 from .models import *
 # Create your views here.
 
+
+    
+
+
 @api_view(['GET'])
 def apiOverview(request): #returns all the working urls with their format
     api_urls = {
@@ -18,7 +22,6 @@ def apiOverview(request): #returns all the working urls with their format
 class patientCreateList(generics.ListCreateAPIView):
     queryset = Patient.objects.all()
     serializer_class = PatientSerializer
-    
 
 class patientRetrieveUpdateDelete(generics.RetrieveUpdateDestroyAPIView):
     queryset = Patient.objects.all()
@@ -128,3 +131,11 @@ class visitOperationCreateList(generics.ListCreateAPIView):
 class visitOperationRetrieveUpdateDelete(generics.RetrieveUpdateDestroyAPIView):
     queryset = Visit_Operation.objects.all()
     serializer_class = VisitOperationSerializer
+    
+#CUSTOM VISITS
+
+class userVisits(generics.ListAPIView):
+    serializer_class = VisitSerializer
+    def get_queryset(self):
+        patient = self.kwargs['pk']
+        return    Visit.objects.filter(patientID=patient)
