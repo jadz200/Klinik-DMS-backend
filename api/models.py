@@ -41,12 +41,15 @@ class Patient(models.Model):
     
 class JournalEntryType(models.Model):
     title=models.CharField(max_length=255)
+    
+    def __str__(self):
+        return self.title
+
 
 class PaymentJournal(models.Model):
     patientID=models.ForeignKey(Patient, null= False,on_delete=models.CASCADE)
     journal_entry_typeID=models.ForeignKey(JournalEntryType, null=False,on_delete=models.CASCADE)
     clinicID=models.ForeignKey(Clinic,null=False,on_delete=models.CASCADE)
-    userID=models.ForeignKey(User,null=False, on_delete=models.CASCADE)
     amount=MoneyField(decimal_places=2,default=0, default_currency='USD', max_digits=12,)
     reason=models.CharField(max_length=255)
 
@@ -76,17 +79,3 @@ class Visit(models.Model):
     date=models.DateTimeField(null=False ,default=datetime(2022, 4, 9, 18, 43, 14, 109427))
     cost=MoneyField(decimal_places=2,default=0, default_currency='USD', max_digits=12,)
     comments= models.CharField(max_length=512,  null = True )
-
-class Operation(models.Model):
-    clinicID= models.ForeignKey(Clinic,on_delete=models.CASCADE , null=False)
-    title= models.CharField(max_length=100, null=False )
-    cost=MoneyField(decimal_places=2,default=0, default_currency='USD', max_digits=12,)
-    
-    def __str__(self):
-        return self.title
-    
-class Visit_Operation(models.Model):
-    visitID= models.ForeignKey(Visit,on_delete=models.CASCADE , null=False)
-    operationID= models.ForeignKey(Operation,on_delete=models.CASCADE , null=False)
-    cost=MoneyField(decimal_places=2,default=0, default_currency='USD', max_digits=12,)
-    
