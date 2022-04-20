@@ -86,7 +86,7 @@ class Visit(models.Model):
     patientID=models.ForeignKey(Patient, on_delete=models.CASCADE,null=False,default=1)
     doctorID=models.ForeignKey(User, on_delete=models.CASCADE,null=True)
     roomID=models.ForeignKey(Room, on_delete=models.CASCADE,null=False)
-    date=models.DateTimeField(null=False ,default=datetime(2022, 4, 9, 18, 43, 14, 109427))
+    date=models.DateTimeField()
     cost=MoneyField(decimal_places=2,default=0, default_currency='USD', max_digits=12,)
     comments= models.CharField(max_length=512,  null = True )
     created_at = models.DateTimeField(auto_now_add=True)

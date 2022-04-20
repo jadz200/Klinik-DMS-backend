@@ -107,13 +107,48 @@ class paymentJournalRetrieveUpdateDelete(generics.RetrieveUpdateDestroyAPIView):
 #Visit views
 
 class visitCreateList(generics.ListCreateAPIView):
-    queryset = Visit.objects.all()
-    serializer_class = VisitSerializer
+    def get(self,request):
+            queryset = Visit.objects.all()
+            serializer_class = VisitSerializer(queryset, many=True)
+            return Response(serializer_class.data)
+    def post(self, request, format=None):
+            data=request.data
+            request.data._mutable = True
+            request.POST['date']=datetime.now()
+            data._mutable = False
+            serializer = VisitSerializer(data=request.data)
+            if serializer.is_valid():
+                serializer.save()
+                return Response(serializer.data, status=status.HTTP_201_CREATED)
+            else:
+                return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
     
 
 class visitRetrieveUpdateDelete(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Visit.objects.all()
-    serializer_class = VisitSerializer
+    def get_object(self, pk):
+        try:
+            return Visit.objects.get(pk=pk)
+        except Visit.DoesNotExist:
+            raise Http404
+
+    def get(self, request, pk, format=None):
+            visit = self.get_object(pk)
+            serializer = VisitSerializer(visit)
+            return Response(serializer.data,status=status.HTTP_200_OK)
+
+    def put(self, request, pk, format=None):
+            patient = self.get_object(pk)
+            serializer = VisitSerializer(patient, data=request.data)
+            if serializer.is_valid():
+                serializer.save()
+                return Response(serializer.data, status=status.HTTP_200_OK)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def delete(self, request, pk, format=None):
+        patient = self.get_object(pk)
+        patient.delete()
+        return Response({'message':"Visit Deleted"},status=status.HTTP_204_NO_CONTENT)
+
 
 #CUSTOM VIEWS
 
