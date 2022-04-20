@@ -1,4 +1,3 @@
-from asyncio.windows_events import NULL
 from email import message
 from email.message import EmailMessage
 from rest_framework import generics, status
