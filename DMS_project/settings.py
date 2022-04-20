@@ -98,20 +98,20 @@ WSGI_APPLICATION = 'DMS_project.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
-#DATABASES = {
-#
-#    'default': {
-#
-#        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#        'NAME': os.environ['DB_NAME'],
-#        'USER': os.environ['DB_USER'],
-#        'PASSWORD': os.environ['DB_PASSWORD'] ,
-#        'HOST': os.environ['DB_HOST'],
-#        'PORT': os.environ['DB_PORT'],
-#
-#    }
-#
-#}
+DATABASES = {
+
+    'default': {
+
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': os.environ['DB_NAME'],
+        'USER': os.environ['DB_USER'],
+        'PASSWORD': os.environ['DB_PASSWORD'] ,
+        'HOST': os.environ['DB_HOST'],
+        'PORT': os.environ['DB_PORT'],
+
+    }
+
+}
 
 DATABASES = {
     'default': {
@@ -212,5 +212,5 @@ EMAIL_BACKEND ="django.core.mail.backends.smtp.EmailBackend"
 EMAIL_HOST = "smtp.gmail.com"
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
-EMAIL_HOST_USER = "trove1player@gmail.com"
-EMAIL_HOST_PASSWORD = "Lolol9876!"
+EMAIL_HOST_USER = os.environ['EMAIL_USERNAME']
+EMAIL_HOST_PASSWORD = os.environ['EMAIL_PASSWORD']
