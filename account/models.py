@@ -60,7 +60,7 @@ class Account(AbstractBaseUser):
         return self.email
 
     def __str__(self):
-        return (str(self.pk)+"   "+self.email)
+        return (self.email)
 
     def has_perm(self, perm, obj=None):
         # return true if user has the necessary permissions
