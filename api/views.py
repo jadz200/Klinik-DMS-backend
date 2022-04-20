@@ -7,7 +7,8 @@ from .serializers import *
 from .models import *
 from django.http import HttpRequest
 from account.views import RegistrationAPIView
-
+from rest_framework.decorators import  permission_classes
+from rest_framework.permissions import IsAuthenticated
 
 # Create your views here.
 
@@ -22,7 +23,8 @@ def apiOverview(request):
 
 #Patient VIEWS
 class patientCreateList(APIView):
-    
+    permission_classes = [IsAuthenticated]
+
     def get(self,request):
         if(str(request.user.roleID) != "Secretary" ):
             return Response({'message':"You are not allowed"},status.HTTP_401_UNAUTHORIZED)
