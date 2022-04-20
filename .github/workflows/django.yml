@@ -17,6 +17,8 @@ jobs:
       DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
       DB_HOST: ${{ secrets.DB_HOST }}
       DB_PORT: ${{ secrets.DB_PORT }}
+      EMAIL_USERNAME: ${{secrets.EMAIL_USERNAME}}
+      EMAIL_PASSWORD: ${{secrets.EMAIL_PASSWORD}}
     strategy:
       max-parallel: 4
       matrix:
