@@ -1,7 +1,6 @@
 from django.contrib import admin
 
-from api.models import Appointment, Clinic, JournalEntryType, Operation, Patient, PaymentJournal, Role, Room, User, Visit, Visit_Operation
-
+from api.models import Appointment, Clinic, JournalEntryType, Patient, PaymentJournal, Role, Room, User, Visit
 # Register your models here.
 
 
@@ -14,5 +13,3 @@ admin.site.register(Appointment)
 admin.site.register(JournalEntryType)
 admin.site.register(PaymentJournal)
 admin.site.register(Visit)
-admin.site.register(Operation)
-admin.site.register(Visit_Operation)

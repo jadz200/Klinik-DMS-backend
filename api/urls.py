@@ -1,13 +1,9 @@
 from django.urls import path
 from . import views
-from rest_framework_simplejwt.views import (TokenRefreshView, TokenObtainPairView)
 from rest_framework.urlpatterns import format_suffix_patterns
 urlpatterns = [
     path('',views.apiOverview, name="api-overview") ,
-    
-    path('token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
-    path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
-    
+
     path('patient/',views.patientCreateList.as_view(), name="patient-list") ,
     path('patient/create/',views.patientCreateList.as_view(), name="patient-create") ,
     path('patient/<str:pk>/',views.patientRetrieveUpdateDelete.as_view(), name="patient-detail") ,
@@ -63,20 +59,8 @@ urlpatterns = [
     path('visit/<str:pk>/update/',views.visitRetrieveUpdateDelete.as_view(), name="visit-update") ,
     path('visit/<str:pk>/delete/',views.visitRetrieveUpdateDelete.as_view(), name="visit-delete") ,
     
-    path('operation/',                views.operationCreateList.as_view(), name="operation-list") ,
-    path('operation/create/',         views.operationCreateList.as_view(), name="operation-create") ,
-    path('operation/<str:pk>/',       views.operationRetrieveUpdateDelete.as_view(), name="operation-detail") ,
-    path('operation/<str:pk>/update/',views.operationRetrieveUpdateDelete.as_view(), name="operation-update") ,
-    path('operation/<str:pk>/delete/',views.operationRetrieveUpdateDelete.as_view(), name="operation-delete") ,
-    
-    path('visitOperation/',                 views.visitOperationCreateList.as_view(), name="visitOperation-list") ,
-    path('visitOperation/create/',          views.visitOperationCreateList.as_view(), name="visitOperation-create") ,
-    path('visitOperation/<str:pk>/',        views.visitOperationRetrieveUpdateDelete.as_view(), name="visitOperation-detail") ,
-    path('visitOperation/<str:pk>/update/', views.visitOperationRetrieveUpdateDelete.as_view(), name="visitOperation-update") ,
-    path('visitOperation/<str:pk>/delete/', views.visitOperationRetrieveUpdateDelete.as_view(), name="visitOperation-delete") ,
 
-
-    path('patient/<str:pk>/visits', views.userVisits.as_view(), name="user visits"),
+    path('patient/<str:pk>/visits/', views.userVisits.as_view(), name="user visits"),
 
 
 

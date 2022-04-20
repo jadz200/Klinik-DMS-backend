@@ -31,7 +31,7 @@ if os.path.isfile(dotenv_file):
 SECRET_KEY = os.environ['SECRET_KEY'] 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False #changed when hosted in heroku
+DEBUG = True #changed when hosted in heroku
 
 ALLOWED_HOSTS = ["*"]
 
@@ -46,15 +46,17 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    
+
     #apps
     'api.apps.ApiConfig',
-    
+    'account',
     #added throught pip installs
     'corsheaders',
+
     'rest_framework',
     'rest_framework_simplejwt.token_blacklist',
-    'djmoney'
+    'djmoney',
+
 ]
 
 MIDDLEWARE = [
@@ -96,24 +98,31 @@ WSGI_APPLICATION = 'DMS_project.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
+#DATABASES = {
+#
+#    'default': {
+#
+#        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#        'NAME': os.environ['DB_NAME'],
+#        'USER': os.environ['DB_USER'],
+#        'PASSWORD': os.environ['DB_PASSWORD'] ,
+#        'HOST': os.environ['DB_HOST'],
+#        'PORT': os.environ['DB_PORT'],
+#
+#    }
+#
+#}
+
 DATABASES = {
-
     'default': {
-
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': os.environ['DB_NAME'],
-        'USER': os.environ['DB_USER'],
-        'PASSWORD': os.environ['DB_PASSWORD'] ,
-        'HOST': os.environ['DB_HOST'],
-        'PORT': os.environ['DB_PORT'],
-
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
-
 }
 
-import dj_database_url 
-db_from_env =dj_database_url.config(conn_max_age=600)
-DATABASES['default'].update(db_from_env)
+#import dj_database_url 
+#db_from_env =dj_database_url.config(conn_max_age=600)
+#DATABASES['default'].update(db_from_env)
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
@@ -158,18 +167,20 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 REST_FRAMEWORK = {
-    "DEFAULT_PERMISSION_CLASSES": [   "rest_framework.permissions.AllowAny" ],
-}
+    "DEFAULT_PERMISSION_CLASSES": [
+        "rest_framework.permissions.AllowAny" ],
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+        'rest_framework_simplejwt.authentication.JWTAuthentication'],
+    }
 
 
 CORS_ORIGIN_ALLOW_ALL=True
-
 SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=5),
+    'ACCESS_TOKEN_LIFETIME': timedelta(days=1),
     'REFRESH_TOKEN_LIFETIME': timedelta(days=90),
     'ROTATE_REFRESH_TOKENS': True,
     'BLACKLIST_AFTER_ROTATION': True,
-    'UPDATE_LAST_LOGIN': False,
+    'UPDATE_LAST_LOGIN': True,
 
     'ALGORITHM': 'HS256',
     'VERIFYING_KEY': None,
@@ -194,3 +205,12 @@ SIMPLE_JWT = {
     'SLIDING_TOKEN_LIFETIME': timedelta(minutes=5),
     'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=1),
 }
+
+AUTH_USER_MODEL ='account.Account'
+
+EMAIL_BACKEND ="django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST = "smtp.gmail.com"
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST_USER = "trove1player@gmail.com"
+EMAIL_HOST_PASSWORD = "Lolol9876!"

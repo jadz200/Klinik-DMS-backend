@@ -1,18 +1,18 @@
-from dataclasses import field
-from pyexpat import model
-from statistics import mode
 from  rest_framework import serializers
 from .models import *
 
+class RoleSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model= Role
+        fields='__all__'
+
+    
 class PatientSerializer(serializers.ModelSerializer):
     class Meta:
         model= Patient
         fields ='__all__'
-        
-class RoleSerializer(serializers.ModelSerializer):
-    class Meta:
-        model= Role
-        fields='__all__'
+    
         
 class ClinicSerializer(serializers.ModelSerializer):
     class Meta:
@@ -50,14 +50,5 @@ class VisitSerializer(serializers.ModelSerializer):
     class Meta:
         model= Visit
         fields='__all__'
+        exclude = ('first_name')
 
-class OperationSerializer(serializers.ModelSerializer):
-    class Meta:
-        model= Operation
-        fields='__all__'
-
-
-class VisitOperationSerializer(serializers.ModelSerializer):
-    class Meta:
-        model= Visit_Operation
-        fields='__all__'
