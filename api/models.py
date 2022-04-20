@@ -37,7 +37,7 @@ class Patient(models.Model):
     first_name= models.CharField(max_length=20 ,  null = False)
     last_name= models.CharField(max_length=20,  null = False)
     phone = models.CharField(null=False,max_length=100)
-    email = models.EmailField(verbose_name='user email address', max_length=100, unique=True)
+    mail = models.EmailField(verbose_name='user email address', max_length=100, unique=True)
     address=models.CharField(max_length=50, null=False, default="") 
     created_at = models.DateTimeField(auto_now_add=True)
     created_by=models.CharField(max_length=90,null=True)
