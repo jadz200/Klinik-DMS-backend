@@ -1,6 +1,10 @@
 from django.contrib import admin
 
 from api.models import Appointment, Clinic, JournalEntryType, Patient, PaymentJournal, Role, Room, User, Visit
+<<<<<<< HEAD
+=======
+
+>>>>>>> 89902b88ee83f2a1360480686b10ae8679aab998
 # Register your models here.
 
 

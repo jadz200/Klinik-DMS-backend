@@ -47,7 +47,14 @@ class Patient(models.Model):
     
 class JournalEntryType(models.Model):
     title=models.CharField(max_length=255)
+<<<<<<< HEAD
     created_at = models.DateTimeField(auto_now_add=True)
+=======
+    
+    def __str__(self):
+        return self.title
+
+>>>>>>> 89902b88ee83f2a1360480686b10ae8679aab998
 
 class PaymentJournal(models.Model):
     patientID=models.ForeignKey(Patient, null= False,on_delete=models.CASCADE)
@@ -85,5 +92,8 @@ class Visit(models.Model):
     date=models.DateTimeField(null=False ,default=datetime(2022, 4, 9, 18, 43, 14, 109427))
     cost=MoneyField(decimal_places=2,default=0, default_currency='USD', max_digits=12,)
     comments= models.CharField(max_length=512,  null = True )
+<<<<<<< HEAD
     created_at = models.DateTimeField(auto_now_add=True)
 
+=======
+>>>>>>> 89902b88ee83f2a1360480686b10ae8679aab998

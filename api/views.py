@@ -162,8 +162,12 @@ class visitRetrieveUpdateDelete(generics.RetrieveUpdateDestroyAPIView):
     queryset = Visit.objects.all()
     serializer_class = VisitSerializer
     
+<<<<<<< HEAD
 
 #CUSTOM VIEWS
+=======
+#CUSTOM VISITS
+>>>>>>> 89902b88ee83f2a1360480686b10ae8679aab998
 
 #Gets Patient ID and return all the visits linked to that Patient
 class userVisits(generics.ListAPIView):

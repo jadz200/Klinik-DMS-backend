@@ -59,8 +59,12 @@ urlpatterns = [
     path('visit/<str:pk>/update/',views.visitRetrieveUpdateDelete.as_view(), name="visit-update") ,
     path('visit/<str:pk>/delete/',views.visitRetrieveUpdateDelete.as_view(), name="visit-delete") ,
     
+<<<<<<< HEAD
 
     path('patient/<str:pk>/visits/', views.userVisits.as_view(), name="user visits"),
+=======
+    path('patient/<str:pk>/visits', views.userVisits.as_view(), name="user visits"),
+>>>>>>> 89902b88ee83f2a1360480686b10ae8679aab998
 
 
 
