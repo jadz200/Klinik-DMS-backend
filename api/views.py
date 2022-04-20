@@ -106,16 +106,14 @@ class paymentJournalRetrieveUpdateDelete(generics.RetrieveUpdateDestroyAPIView):
 
 #Visit views
 
-class visitCreateList(generics.ListCreateAPIView):
+class visitCreateList(APIView):
+    
     def get(self,request):
             queryset = Visit.objects.all()
             serializer_class = VisitSerializer(queryset, many=True)
             return Response(serializer_class.data)
     def post(self, request, format=None):
             data=request.data
-            request.data._mutable = True
-            request.POST['date']=datetime.now()
-            data._mutable = False
             serializer = VisitSerializer(data=request.data)
             if serializer.is_valid():
                 serializer.save()
@@ -124,7 +122,7 @@ class visitCreateList(generics.ListCreateAPIView):
                 return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
     
 
-class visitRetrieveUpdateDelete(generics.RetrieveUpdateDestroyAPIView):
+class visitRetrieveUpdateDelete(APIView):
     def get_object(self, pk):
         try:
             return Visit.objects.get(pk=pk)
