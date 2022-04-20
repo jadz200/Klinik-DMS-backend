@@ -5,7 +5,7 @@ from rest_framework.response import Response
 from rest_framework.permissions import *
 from .serializers import *
 from .models import *
-from django.http import HttpRequest, QueryDict
+from django.http import HttpRequest
 from account.views import RegistrationAPIView
 
 
@@ -161,13 +161,8 @@ class visitCreateList(generics.ListCreateAPIView):
 class visitRetrieveUpdateDelete(generics.RetrieveUpdateDestroyAPIView):
     queryset = Visit.objects.all()
     serializer_class = VisitSerializer
-    
-<<<<<<< HEAD
 
 #CUSTOM VIEWS
-=======
-#CUSTOM VISITS
->>>>>>> 89902b88ee83f2a1360480686b10ae8679aab998
 
 #Gets Patient ID and return all the visits linked to that Patient
 class userVisits(generics.ListAPIView):
