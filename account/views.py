@@ -48,14 +48,14 @@ class RegistrationAPIView(generics.GenericAPIView):
         
         serializer = AccountSerializer(data = request.data)
         if(serializer.is_valid()):
-            #message="Welcome to Klinic DMS, your password is :"+self.request.data['password']+"\n Hope to see you at work"
-            #send_mail(
-            #    'Welcome to Klinik DMS',
-            #    message,
-            #    settings.EMAIL_HOST_USER ,
-            #    [self.request.data['email']],
-            #    fail_silently=False
-            #    )
+            message="Welcome to Klinic DMS, your password is :"+self.request.data['password']+"\n Hope to see you at work"
+            send_mail(
+                'Welcome to Klinik DMS',
+                message,
+                settings.EMAIL_HOST_USER ,
+                [self.request.data['email']],
+                fail_silently=False
+                )
             
             password = make_password(request.data['password'])
             serializer.save(password=password)
