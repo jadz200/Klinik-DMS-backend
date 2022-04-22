@@ -1,12 +1,13 @@
-from pickle import TRUE
 from django.conf import settings
 from django.db import models
 from djmoney.models.fields import MoneyField
 from datetime import datetime
+from django.contrib.auth.models import AbstractBaseUser,UserManager, PermissionsMixin
+
 
 # Create your models here.
 class Clinic(models.Model):
-    clinic_name = models.CharField(max_length=10, null=False)
+    clinic_name = models.CharField(max_length=10, null=False,verbose_name="Clinic")
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
@@ -19,19 +20,80 @@ class Role(models.Model):
 
     def __str__(self):
         return self.title
+
+class UserManager(UserManager):
   
-   
-class User(models.Model):
+    def create_user(self, email, password=None, **kwargs):
+        if not email:
+            raise ValueError('Email field is required')
+
+        email = self.normalize_email(email)
+        user = self.model(email=email, **kwargs)
+        user.set_password(password)
+        user.save()
+        
+    def create_staffuser(self, email, password):
+
+      user = self.create_user(email,password=password)
+      user.staff = True
+      user.save(using=self._db)
+      return user
+  
+    def create_superuser(self, email, password):
+
+          user = self.create_user(
+              email,
+              password=password,
+          )
+          user.staff = True
+          user.admin = True
+          user.save(using=self._db)
+          return user  
+    
+class User(AbstractBaseUser,PermissionsMixin):
+    objects = UserManager() 
     first_name= models.CharField(max_length=20 ,  null = False)
     last_name= models.CharField(max_length=20,  null = False)
-    phone = models.CharField(null=False,max_length=100)
-    email = models.EmailField(verbose_name='user email address', max_length=100, unique=True)
-    clinicID= models.ForeignKey(Clinic,on_delete=models.CASCADE , null=False)
-    roleID=models.ForeignKey(Role,on_delete=models.CASCADE,null= True)
+    phone = models.CharField(null=False,verbose_name='Phone number',max_length=100)
+    email = models.EmailField(verbose_name='Email address', max_length=100, unique=True)
+    clinicID= models.ForeignKey(Clinic,verbose_name='Clinic',on_delete=models.CASCADE , null=True)
+    roleID=models.ForeignKey(Role,verbose_name='Role',on_delete=models.CASCADE,null= True)
+    username=models.CharField(max_length=50)
+    is_active = models.BooleanField(default=True,null=False)
+    is_staff = models.BooleanField(default=False,null=False)
+    is_admin = models.BooleanField(default=False,null=False)
+    is_superuser=models.BooleanField(default=False,null=False)
+    
+    password=models.CharField(max_length=100)
+    
     created_at = models.DateTimeField(auto_now_add=True)
-    accountID= models.OneToOneField(settings.AUTH_USER_MODEL,on_delete=models.CASCADE, null=True)
+    last_login= models.DateTimeField(auto_now_add=True)
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = ['first_name','last_name','phone']
+
+
+    def get_full_name(self):
+        # users identification is by email
+        return self.email
+
+    def get_user_short_name(self):
+        # user identification is by email
+        return self.email
+
     def __str__(self):
-        return self.first_name+" "+self.last_name
+        return (self.email)
+
+    def has_perm(self, perm, obj=None):
+        # return true if user has the necessary permissions
+        return True
+    
+    def has_module_perms(self, app_label):
+        # return true if user is granted the permission to view 'app_label'
+        return True
+    
+
+
+
 
 class Patient(models.Model):
     first_name= models.CharField(max_length=20 ,  null = False)
@@ -40,7 +102,6 @@ class Patient(models.Model):
     mail = models.EmailField(verbose_name='user email address', max_length=100, unique=True)
     address=models.CharField(max_length=50, null=False, default="") 
     created_at = models.DateTimeField(auto_now_add=True)
-    created_by=models.CharField(max_length=90,null=True)
     def __str__(self):
         return self.first_name+" "+self.last_name
     
@@ -63,15 +124,14 @@ class PaymentJournal(models.Model):
 
 
 class Room(models.Model):
-    clinicID= models.ForeignKey(Clinic,on_delete=models.CASCADE,null=False)
-    title= models.CharField(max_length=100, null=False )
+    clinicID= models.ForeignKey(Clinic,on_delete=models.CASCADE,null=False,verbose_name="Clinic")
+    title= models.CharField(max_length=100, null=False, verbose_name="Room title")
     created_at = models.DateTimeField(auto_now_add=True)
     def __str__(self):
         return self.title
 
 class Appointment(models.Model):
     patientID=models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    createdbyID=models.ForeignKey(User,default=1,on_delete=models.CASCADE, null=False,related_name="createdby")
     doctorID=models.ForeignKey(User, on_delete=models.CASCADE,null=True,related_name="doctor")
     roomID=models.ForeignKey(Room, on_delete=models.CASCADE, null=True)
     date=models.DateTimeField(null=False,default=datetime(2022, 4, 9, 18, 43, 14, 109427))

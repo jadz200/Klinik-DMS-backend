@@ -21,64 +21,10 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
 
         # Add custom claims
         token['id'] = user.id
+        token['first_name']=user.first_name
         # ...
 
         return token
 
 class MyTokenObtainPairView(TokenObtainPairView):
     serializer_class = MyTokenObtainPairSerializer
-
-class RegistrationAPIView(generics.GenericAPIView):
-
-    serializer_class = AccountSerializer
-
-    def post(self, request):
-        data = request.data
-
-        if(request.POST['password']==""):
-            request.data._mutable = True
-            request.POST['password']=UserManager().make_random_password()
-            data._mutable = False
-
-            
-        if(request.POST['username']==""):
-            request.data._mutable = True
-            request.POST['username']=request.POST['email'].split('@')[0]
-            data._mutable = False
-        
-        serializer = AccountSerializer(data = request.data)
-        if(serializer.is_valid()):
-            message="Welcome to Klinic DMS, your password is :"+self.request.data['password']+"\n Hope to see you at work"
-            send_mail(
-                'Welcome to Klinik DMS',
-                message,
-                settings.EMAIL_HOST_USER ,
-                [self.request.data['email']],
-                fail_silently=False
-                )
-            
-            password = make_password(request.data['password'])
-            serializer.save(password=password)
-            return Response({
-                "RequestId": str(uuid.uuid4()),
-                "Message": "User created successfully",
-                "Account": serializer.data}, status=status.HTTP_201_CREATED
-                )
-        else:
-            return Response({'ERROR': ('email may already exists')},status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-
-
-
-
-class ChangePasswordView(generics.UpdateAPIView):
-
-    queryset = Account.objects.all()
-    serializer_class = ChangePasswordSerializer
-    
-
-class UpdateProfileView(generics.UpdateAPIView):
-
-    queryset = Account.objects.all()
-    serializer_class = UpdateAccountSerializer    
-
-

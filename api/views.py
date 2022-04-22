@@ -33,7 +33,6 @@ class patientRetrieveUpdateDelete(generics.RetrieveUpdateDestroyAPIView):
     
 #User views
 class userCreateList(APIView):
-    permission_classes =[IsAuthenticated]        
     def get(self,request):
         queryset = User.objects.all()
         serializer_class = UserSerializer(queryset, many=True)
