@@ -35,21 +35,6 @@ class userCreateList(APIView):
         queryset = User.objects.all()
         serializer_class = UserSerializer(queryset, many=True)
         return Response(serializer_class.data)
-        
-    def post(self, request, format=None):
-
-        userrequest=HttpRequest()
-        usercontext={'email':request.data["email"],'roleID':request.data["roleID"],'password':'','username':''}
-        userrequest.method='POST'
-        userrequest.data=usercontext
-        response =RegistrationAPIView.as_view()(userrequest)
-        print(response)
-        
-        serializer = UserSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
 
 class userRetrieveUpdateDelete(generics.RetrieveUpdateDestroyAPIView):
