@@ -23,26 +23,29 @@ class Role(models.Model):
 
 class UserManager(UserManager):
   
-    def create_user(self, email, password=None, **kwargs):
+    def create_user(self, email,phone,first_name,last_name, password=None,**kwargs):
         if not email:
             raise ValueError('Email field is required')
 
         email = self.normalize_email(email)
-        user = self.model(email=email, **kwargs)
+        user = self.model(email=email,first_name=first_name,last_name=last_name,phone=phone, **kwargs)
         user.set_password(password)
         user.save()
         
-    def create_staffuser(self, email, password):
+    def create_staffuser(self, email, password,first_name,last_name,phone):
 
-      user = self.create_user(email,password=password)
+      user = self.create_user(email,first_name , last_name , phone,password=password )
       user.staff = True
       user.save(using=self._db)
       return user
   
-    def create_superuser(self, email, password):
+    def create_superuser(self, email, password,first_name,last_name,phone):
 
           user = self.create_user(
               email,
+              first_name,
+              last_name,
+              phone,
               password=password,
           )
           user.staff = True
