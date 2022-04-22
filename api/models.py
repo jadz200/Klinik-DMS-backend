@@ -22,8 +22,8 @@ class Role(models.Model):
         return self.title
 
 class UserManager(UserManager):
-  
-    def create_user(self, email, password=None,**kwargs):
+
+    def create_user(self, email, password=None, **kwargs):
         if not email:
             raise ValueError('Email field is required')
 
@@ -31,15 +31,15 @@ class UserManager(UserManager):
         user = self.model(email=email, **kwargs)
         user.set_password(password)
         user.save()
-        
-    def create_staffuser(self, email, password,):
 
-      user = self.create_user(email,password=password )
+    def create_staffuser(self, email, password):
+
+      user = self.create_user(email,password=password)
       user.staff = True
       user.save(using=self._db)
       return user
-  
-    def create_superuser(self, email, password,):
+
+    def create_superuser(self, email, password):
 
           user = self.create_user(
               email,
@@ -48,8 +48,8 @@ class UserManager(UserManager):
           user.staff = True
           user.admin = True
           user.save(using=self._db)
-          return user  
-    
+          return user
+
 class User(AbstractBaseUser,PermissionsMixin):
     objects = UserManager() 
     first_name= models.CharField(max_length=20 ,  null = False)
