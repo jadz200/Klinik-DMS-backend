@@ -62,8 +62,8 @@ urlpatterns = [
 
     path('patient/<str:pk>/visits/', views.userVisits.as_view(), name="user visits"),
 
-
-
+    path('sms/broadcast/',views.SendBroadcastSMSPatient.as_view(),name="Send sms to 1 person"),
+    path('sms/patient/<str:pk>/',views.SendPrivateSMSPatient.as_view(),name="Send sms to 1 person")
 
 
 ]

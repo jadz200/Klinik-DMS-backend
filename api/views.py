@@ -5,8 +5,11 @@ from rest_framework.response import Response
 from rest_framework.permissions import *
 from .serializers import *
 from .models import *
-from django.http import HttpRequest
+from django.http import HttpRequest, JsonResponse
 from rest_framework.permissions import IsAuthenticated
+import twilio
+from twilio.rest import Client
+import os
 
 # Create your views here.
 
@@ -106,8 +109,37 @@ class userVisits(generics.ListAPIView):
     def get_queryset(self):
         patient = self.kwargs['pk']
         return    Visit.objects.filter(patientID=patient)
+
+class SendPrivateSMSPatient(APIView):
+    def post(self, request, pk, format=None):
+        message=request.data['message']
+        account_sid = os.environ['TWILIO_ACCOUNT_SID']
+        auth_token = os.environ['TWILIO_AUTH_TOKEN']
+        client = Client(account_sid, auth_token)
+        patient=Patient.objects.get(pk=pk)
+        message = client.messages \
+                    .create(
+                         body=message,
+                         from_=os.environ['TWILIO_NUMBER'],
+                         to=patient.phone
+                     )
+        return JsonResponse({ "sent":"success"}) 
     
-    
+class SendBroadcastSMSPatient(APIView):
+    def post(self, request, format=None):
+        message=request.data['message']
+        account_sid = os.environ['TWILIO_ACCOUNT_SID']
+        auth_token = os.environ['TWILIO_AUTH_TOKEN']
+        client = Client(account_sid, auth_token)
+        phonenumbers=list(Patient.objects.values_list('phone',flat=True))
+        print(phonenumbers)
+        for recipient in phonenumbers:
+            if recipient:
+                client.messages.create(from_=os.environ['TWILIO_NUMBER'],
+                                       to=recipient,
+                                       body=message
+                                       )
+        return JsonResponse({ "sent":"success"}) 
     
 #Unused Views
 #ROLE VIEWS

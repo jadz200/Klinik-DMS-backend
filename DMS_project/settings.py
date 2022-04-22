@@ -52,7 +52,6 @@ INSTALLED_APPS = [
     'account',
     #added throught pip installs
     'corsheaders',
-
     'rest_framework',
     'rest_framework_simplejwt.token_blacklist',
     'djmoney',
