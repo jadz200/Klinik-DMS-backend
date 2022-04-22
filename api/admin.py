@@ -15,7 +15,6 @@ admin.site.register(Role)
 admin.site.register(Appointment)
 admin.site.register(JournalEntryType)
 admin.site.register(PaymentJournal)
-admin.site.register(Visit)
 
 class UserForm(forms.ModelForm):
     
@@ -62,3 +61,7 @@ class PatientAdmin(admin.ModelAdmin):
 @admin.register(Room)
 class RoomAdmin(admin.ModelAdmin):
     list_display=('title','clinicID')
+
+@admin.register(Visit)
+class VisitAdmin(admin.ModelAdmin):
+    list_display=('patientID','doctorID','roomID','date')
