@@ -73,15 +73,14 @@ class User(AbstractBaseUser,PermissionsMixin):
 
 
     def get_full_name(self):
-        # users identification is by email
-        return self.email
+        return self.first_name+" "+self.last_name
 
     def get_user_short_name(self):
         # user identification is by email
-        return self.email
+        return self.first_name
 
     def __str__(self):
-        return (self.email)
+        return self.first_name+" "+self.last_name
 
     def has_perm(self, perm, obj=None):
         # return true if user has the necessary permissions
@@ -131,26 +130,27 @@ class Room(models.Model):
         return self.title
 
 class Appointment(models.Model):
-    patientID=models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    doctorID=models.ForeignKey(User, on_delete=models.CASCADE,null=True,related_name="doctor")
-    roomID=models.ForeignKey(Room, on_delete=models.CASCADE, null=True)
-    date=models.DateTimeField(null=False,default=datetime(2022, 4, 9, 18, 43, 14, 109427))
+    patientID=models.ForeignKey(Patient, on_delete=models.CASCADE,verbose_name="Patient")
+    doctorID=models.ForeignKey(User, on_delete=models.CASCADE,null=True,verbose_name="Doctor")
+    roomID=models.ForeignKey(Room, on_delete=models.CASCADE, null=True,verbose_name="Room")
+    date=models.DateTimeField(null=False,)
     duration= models.IntegerField(null=False, default=0)
-    reason=models.CharField(max_length=255, null=False,default="")
+    reason=models.CharField(max_length=255, null=False)
     created_at = models.DateTimeField(auto_now_add=True)
     
-    def __str__(self):
-        return self.date +" "+self.patientID+" "+self.doctorID
 
 class Visit(models.Model):
-    patientID=models.ForeignKey(Patient, on_delete=models.CASCADE,null=False,default=1)
-    doctorID=models.ForeignKey(User, on_delete=models.CASCADE,null=True)
-    roomID=models.ForeignKey(Room, on_delete=models.CASCADE,null=False)
+    patientID=models.ForeignKey(Patient, on_delete=models.CASCADE,null=False,default=1,verbose_name="Patient")
+    doctorID=models.ForeignKey(User, on_delete=models.CASCADE,null=True, verbose_name="Doctor")
+    roomID=models.ForeignKey(Room, on_delete=models.CASCADE,null=False,verbose_name="Room")
     date=models.DateTimeField(auto_now_add=True)
     cost=MoneyField(decimal_places=2,default=0, default_currency='USD', max_digits=12,)
     comments= models.CharField(max_length=512,  null = True )
     created_at = models.DateTimeField(auto_now_add=True)
-        
+    
+    def __str__(self):
+        return str(self.date)+" "+self.patientID+" "
+    
 class Operation(models.Model):
     title=models.CharField(max_length=50)
     cost=MoneyField(decimal_places=2, default_currency='USD', max_digits=12,)
