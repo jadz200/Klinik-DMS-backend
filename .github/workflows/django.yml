@@ -19,6 +19,9 @@ jobs:
       DB_PORT: ${{ secrets.DB_PORT }}
       EMAIL_USERNAME: ${{secrets.EMAIL_USERNAME}}
       EMAIL_PASSWORD: ${{secrets.EMAIL_PASSWORD}}
+      TWILIO_ACCOUNT_SID: ${{secrets.TWILIO_ACCOUNT_SID}}
+      TWILIO_AUTH_TOKEN: ${{secrets.TWILIO_AUTH_TOKEN}}
+      TWILIO_NUMBER: ${{secrets.TWILIO_NUMBER}}
     strategy:
       max-parallel: 4
       matrix:
