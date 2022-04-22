@@ -1,10 +1,7 @@
 from django.contrib import admin
 from django import forms
-from django.forms import  BaseModelForm,PasswordInput
-from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import BaseUserManager
 from api.models import Appointment, Clinic, JournalEntryType, Patient, PaymentJournal, Role, Room, User, Visit
-from django.contrib.auth.forms import UserCreationForm
 from django.core.mail import send_mail
 from django.conf  import settings
 

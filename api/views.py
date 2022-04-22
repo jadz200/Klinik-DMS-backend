@@ -6,8 +6,6 @@ from rest_framework.permissions import *
 from .serializers import *
 from .models import *
 from django.http import HttpRequest
-from account.views import RegistrationAPIView
-from rest_framework.decorators import  permission_classes
 from rest_framework.permissions import IsAuthenticated
 
 # Create your views here.
