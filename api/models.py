@@ -35,7 +35,7 @@ class UserManager(UserManager):
     def create_staffuser(self, email,username, password):
 
       user = self.create_user(email,username,password=password)
-      user.staff = True
+      user.is_staff = True
       user.save(using=self._db)
       return user
 
@@ -46,8 +46,8 @@ class UserManager(UserManager):
               username,
               password=password,
           )
-          user.staff = True
-          user.admin = True
+          user.is_staff = True
+          user.is_admin = True
           user.save(using=self._db)
           return user
 
