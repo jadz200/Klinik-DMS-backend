@@ -23,10 +23,12 @@ def apiOverview(request):
 
 #Patient VIEWS
 class patientCreateList(generics.ListCreateAPIView):
+    permission_classes =[IsAuthenticated]        
     queryset = Patient.objects.all()
     serializer_class = PatientSerializer
 
 class patientRetrieveUpdateDelete(generics.RetrieveUpdateDestroyAPIView):
+    permission_classes =[IsAuthenticated]        
     queryset = Patient.objects.all()
     serializer_class = PatientSerializer
 
