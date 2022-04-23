@@ -149,7 +149,7 @@ class Visit(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     
     def __str__(self):
-        return str(self.date)+" "+str(self.patientID)+" "
+        return str(self.date)[0:16]+" "+str(self.patientID)+" "
     
 class Operation(models.Model):
     title=models.CharField(max_length=50)
