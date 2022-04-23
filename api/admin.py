@@ -1,7 +1,9 @@
+from datetime import timedelta
 from django.contrib import admin
 from django import forms
 from django.contrib.auth.models import BaseUserManager
-from api.models import Appointment, Clinic, JournalEntryType, Patient, PaymentJournal, Role, Room, User, Visit
+from pytz import timezone
+from api.models import Appointment, Clinic, JournalEntryType, Operation, Patient, PaymentJournal, Role, Room, User, Visit
 from django.core.mail import send_mail
 from django.conf  import settings
 
@@ -12,9 +14,9 @@ from django.conf  import settings
 
 admin.site.register(Clinic)
 admin.site.register(Role)
-admin.site.register(Appointment)
 admin.site.register(JournalEntryType)
 admin.site.register(PaymentJournal)
+
 
 class UserForm(forms.ModelForm):
     
@@ -42,7 +44,7 @@ class UserForm(forms.ModelForm):
 class UserAdmin(admin.ModelAdmin):
     form=UserForm
 
-    list_display =('email','first_name','last_name','roleID')
+    list_display =('email','first_name','last_name','phone','roleID')
 
     def get_changeform_initial_data(self, request):
         return {'password':BaseUserManager().make_random_password()}
@@ -64,4 +66,12 @@ class RoomAdmin(admin.ModelAdmin):
 
 @admin.register(Visit)
 class VisitAdmin(admin.ModelAdmin):
-    list_display=('patientID','doctorID','roomID','date')
+    list_display=('patientID','doctorID','roomID','date','comments')
+
+@admin.register(Appointment)
+class VisitAdmin(admin.ModelAdmin):
+    list_display=('patientID','doctorID','roomID','date',)
+    
+@admin.register(Operation)
+class OperationAdmin(admin.ModelAdmin):
+    list_display=('title','cost')

@@ -95,10 +95,11 @@ class User(AbstractBaseUser,PermissionsMixin):
 
 
 class Patient(models.Model):
+    ClinicID=models.ForeignKey(Clinic,on_delete=models.CASCADE,verbose_name="Clinic")
     first_name= models.CharField(max_length=20 ,  null = False)
     last_name= models.CharField(max_length=20,  null = False)
     phone = models.CharField(null=False,max_length=100)
-    mail = models.EmailField(verbose_name='user email address', max_length=100, unique=True)
+    mail = models.EmailField(verbose_name='Email address', max_length=100, unique=True)
     address=models.CharField(max_length=50, null=False, default="") 
     created_at = models.DateTimeField(auto_now_add=True)
     def __str__(self):
@@ -138,6 +139,8 @@ class Appointment(models.Model):
     reason=models.CharField(max_length=255, null=False)
     created_at = models.DateTimeField(auto_now_add=True)
     
+    def __str__(self):
+        return str(self.date)[0:16]+" "+str(self.patientID)+" "
 
 class Visit(models.Model):
     patientID=models.ForeignKey(Patient, on_delete=models.CASCADE,null=False,default=1,verbose_name="Patient")
@@ -152,5 +155,7 @@ class Visit(models.Model):
         return str(self.date)[0:16]+" "+str(self.patientID)+" "
     
 class Operation(models.Model):
-    title=models.CharField(max_length=50)
-    cost=MoneyField(decimal_places=2, default_currency='USD', max_digits=12,)
+    title=models.CharField(max_length=50 ,verbose_name="Operation")
+    cost=MoneyField(decimal_places=2, default_currency='USD', max_digits=12,verbose_name="Default Price")
+    def __str__(self):
+        return self.title
