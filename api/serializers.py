@@ -51,3 +51,7 @@ class VisitSerializer(serializers.ModelSerializer):
         model= Visit
         fields='__all__'
 
+class VisitOperationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model= Visit_Operation
+        fields='__all__'

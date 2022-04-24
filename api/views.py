@@ -34,7 +34,7 @@ class patientRetrieveUpdateDelete(generics.RetrieveUpdateDestroyAPIView):
 
     
 #User views
-class userCreateList(APIView):
+class userList(APIView):
     def get(self,request):
         queryset = User.objects.all()
         serializer_class = UserSerializer(queryset, many=True)
@@ -102,6 +102,28 @@ class visitRetrieveUpdateDelete(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = VisitSerializer
 
 
+#visitOperation views
+
+class visitOperationCreateList(APIView):
+    def get(self,request):
+        queryset = Visit_Operation.objects.all()
+        serializer_class = VisitOperationSerializer(queryset, many=True)
+        return Response(serializer_class.data)
+    def post(self, request, format=None):
+        print(request.data)
+        #if request.POST['cost'] is None:
+        #    print("test")
+        serializer = VisitOperationSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)    
+
+class visitOperationRetrieveUpdateDelete(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Visit_Operation.objects.all()
+    serializer_class = VisitOperationSerializer
+
+
 #CUSTOM VIEWS
 
 #Gets Patient ID and return all the visits linked to that Patient
@@ -111,6 +133,8 @@ class userVisits(generics.ListAPIView):
         patient = self.kwargs['pk']
         return    Visit.objects.filter(patientID=patient)
 
+
+#Sends an SMS to one patient
 class SendPrivateSMSPatient(APIView):
     def post(self, request, pk, format=None):
         message=request.data['message']
@@ -126,6 +150,8 @@ class SendPrivateSMSPatient(APIView):
                      )
         return JsonResponse({ "sent":"success"}) 
     
+    
+#Sends an SMS to all patient
 class SendBroadcastSMSPatient(APIView):
     def post(self, request, format=None):
         message=request.data['message']
@@ -141,7 +167,10 @@ class SendBroadcastSMSPatient(APIView):
                                        body=message
                                        )
         return JsonResponse({ "sent":"success"}) 
-    
+
+
+
+
 #Unused Views
 #ROLE VIEWS
 class roleCreateList(generics.ListCreateAPIView):

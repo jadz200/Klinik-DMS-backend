@@ -163,4 +163,4 @@ class Visit(models.Model):
 class Visit_Operation(models.Model):
     operation=models.OneToOneField(Operation,on_delete=models.CASCADE)    
     cost=MoneyField(decimal_places=2, default_currency='USD', max_digits=12,verbose_name="Price")
-    visitoperation=models.ForeignKey(Visit, on_delete=models.CASCADE)
+    visit=models.ForeignKey(Visit, on_delete=models.CASCADE)

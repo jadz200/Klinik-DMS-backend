@@ -23,8 +23,8 @@ urlpatterns = [
     path('clinic/<str:pk>/update/',views.clinicRetrieveUpdateDelete.as_view(), name="clinic-update") ,
     path('clinic/<str:pk>/delete/',views.clinicRetrieveUpdateDelete.as_view(), name="clinic-delete") ,
     
-    path('user/',                views.userCreateList.as_view(), name="user-list") ,
-    path('user/create/',         views.userCreateList.as_view(), name="user-create") ,
+    path('user/',                views.userList.as_view(), name="user-list") ,
+    path('user/create/',         views.userList.as_view(), name="user-create") ,
     path('user/<str:pk>/',       views.userRetrieveUpdateDelete.as_view(), name="user-detail") ,
     path('user/<str:pk>/update/',views.userRetrieveUpdateDelete.as_view(), name="user-update") ,
     path('user/<str:pk>/delete/',views.userRetrieveUpdateDelete.as_view(), name="user-delete") ,
@@ -59,6 +59,11 @@ urlpatterns = [
     path('visit/<str:pk>/update/',views.visitRetrieveUpdateDelete.as_view(), name="visit-update") ,
     path('visit/<str:pk>/delete/',views.visitRetrieveUpdateDelete.as_view(), name="visit-delete") ,
     
+    path('visitOperation/',                views.visitOperationCreateList.as_view(), name="visitOperation-list") ,
+    path('visitOperation/create/',         views.visitOperationCreateList.as_view(), name="visitOperation-create") ,
+    path('visitOperation/<str:pk>/',       views.visitOperationRetrieveUpdateDelete.as_view(), name="visitOperation-detail") ,
+    path('visitOperation/<str:pk>/update/',views.visitOperationRetrieveUpdateDelete.as_view(), name="visitOperation-update") ,
+    path('visitOperation/<str:pk>/delete/',views.visitOperationRetrieveUpdateDelete.as_view(), name="visitOperation-delete") ,
 
     path('patient/<str:pk>/visits/', views.userVisits.as_view(), name="user visits"),
 
