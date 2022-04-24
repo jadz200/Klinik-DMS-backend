@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 
 from pathlib import Path
 import os
+import ssl
 import dotenv 
 from datetime import timedelta
 
@@ -55,6 +56,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework_simplejwt.token_blacklist',
     'djmoney',
+    'django_celery_beat',
 
 ]
 
@@ -219,9 +221,7 @@ TWILIO_ACCOUNT_SID = os.getenv("TWILIO_ACCOUNT_SID")
 TWILIO_AUTH_TOKEN = os.getenv("TWILIO_AUTH_TOKEN")
 TWILIO_NUMBER = os.getenv("TWILIO_NUMBER")
 
-#CELERY_BROKER_URL = os.environ['CELERY_BROKER_URL']
-#CELERY_RESULT_BACKEND = 'redis://localhost:6379'
-#CELERY_ACCEPT_CONTENT = ['application/json']
-#CELERY_TASK_SERIALIZER = 'json'
-#CELERY_RESULT_SERIALIZER = 'json'
-#CELERY_TIMEZONE = 'Asia/Beirut'
+
+
+CELERY_BROKER_URL = os.environ.get('CELERY_BROKER_URL')
+CELERY_BROKER_USE_SSL={'ssl_cert_reqs': ssl.CERT_NONE }
