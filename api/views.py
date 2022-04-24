@@ -10,6 +10,7 @@ from rest_framework.permissions import IsAuthenticated
 import twilio
 from twilio.rest import Client
 import os
+import datetime
 
 # Create your views here.
 
@@ -160,3 +161,14 @@ class clinicCreateList(generics.ListCreateAPIView):
 class clinicRetrieveUpdateDelete(generics.RetrieveUpdateDestroyAPIView):
     queryset = Clinic.objects.all()
     serializer_class = ClinicSerializer
+    
+    
+    
+#class FilterAppointement(APIView):
+#    def get(self,request):
+#        start_date=datetime.now()
+#    #end_date=datetime.date.today+ datetime.timedelta(days=2)
+#        print(start_date)
+#        return JsonResponse({ "sent":"success"}) 
+#    #print(end_date)
+#    #appointemnts=Appointment.objects.filter(date__day(datetime()))

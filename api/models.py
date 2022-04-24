@@ -142,6 +142,13 @@ class Appointment(models.Model):
     def __str__(self):
         return str(self.date)[0:16]+" "+str(self.patientID)+" "
 
+class Operation(models.Model):
+    title=models.CharField(max_length=50 ,verbose_name="Operation")
+    cost=MoneyField(decimal_places=2, default_currency='USD', max_digits=12,verbose_name="Default Price")
+    def __str__(self):
+        return self.title
+
+
 class Visit(models.Model):
     patientID=models.ForeignKey(Patient, on_delete=models.CASCADE,null=False,default=1,verbose_name="Patient")
     doctorID=models.ForeignKey(User, on_delete=models.CASCADE,null=True, verbose_name="Doctor")
@@ -150,12 +157,10 @@ class Visit(models.Model):
     cost=MoneyField(decimal_places=2,default=0, default_currency='USD', max_digits=12,)
     comments= models.CharField(max_length=512,  null = True )
     created_at = models.DateTimeField(auto_now_add=True)
-    
     def __str__(self):
         return str(self.date)[0:16]+" "+str(self.patientID)+" "
-    
-class Operation(models.Model):
-    title=models.CharField(max_length=50 ,verbose_name="Operation")
-    cost=MoneyField(decimal_places=2, default_currency='USD', max_digits=12,verbose_name="Default Price")
-    def __str__(self):
-        return self.title
+
+class Visit_Operation(models.Model):
+    operation=models.OneToOneField(Operation,on_delete=models.CASCADE)    
+    cost=MoneyField(decimal_places=2, default_currency='USD', max_digits=12,verbose_name="Price")
+    visitoperation=models.ForeignKey(Visit, on_delete=models.CASCADE)
