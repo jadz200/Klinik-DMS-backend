@@ -101,6 +101,15 @@ class visitRetrieveUpdateDelete(generics.RetrieveUpdateDestroyAPIView):
     queryset = Visit.objects.all()
     serializer_class = VisitSerializer
 
+#Operation views
+
+class OperationList(generics.ListAPIView):
+    queryset = Operation.objects.all()
+    serializer_class = OperationSerializer
+
+class OperationRetrieve(generics.RetrieveAPIView):
+    queryset = Operation.objects.all()
+    serializer_class = OperationSerializer
 
 #visitOperation views
 

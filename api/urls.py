@@ -59,6 +59,10 @@ urlpatterns = [
     path('visit/<str:pk>/update/',views.visitRetrieveUpdateDelete.as_view(), name="visit-update") ,
     path('visit/<str:pk>/delete/',views.visitRetrieveUpdateDelete.as_view(), name="visit-delete") ,
     
+    path('operation/',                views.OperationList.as_view(), name="visitOperation-list") ,
+    path('operation/<str:pk>/',       views.OperationRetrieve.as_view(), name="visitOperation-detail") ,
+
+    
     path('visitOperation/',                views.visitOperationCreateList.as_view(), name="visitOperation-list") ,
     path('visitOperation/create/',         views.visitOperationCreateList.as_view(), name="visitOperation-create") ,
     path('visitOperation/<str:pk>/',       views.visitOperationRetrieveUpdateDelete.as_view(), name="visitOperation-detail") ,
