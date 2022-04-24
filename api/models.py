@@ -161,6 +161,6 @@ class Visit(models.Model):
         return str(self.date)[0:16]+" "+str(self.patientID)+" "
 
 class Visit_Operation(models.Model):
-    operation=models.OneToOneField(Operation,on_delete=models.CASCADE)    
+    operation=models.ForeignKey(Operation,on_delete=models.CASCADE,null= True)    
     cost=MoneyField(decimal_places=2, default_currency='USD', max_digits=12,verbose_name="Price")
     visitID=models.ForeignKey(Visit, on_delete=models.CASCADE)
