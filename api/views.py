@@ -142,6 +142,12 @@ class userVisits(generics.ListAPIView):
         patient = self.kwargs['pk']
         return    Visit.objects.filter(patientID=patient)
 
+#Gets Visit ID and return all the visits_operation linked to that Visit
+class VisitVisit_Operations(generics.ListAPIView):
+    serializer_class = VisitOperationSerializer
+    def get_queryset(self):
+        visit = self.kwargs['pk']
+        return    Visit_Operation.objects.filter(visitID=visit)
 
 #Sends an SMS to one patient
 class SendPrivateSMSPatient(APIView):

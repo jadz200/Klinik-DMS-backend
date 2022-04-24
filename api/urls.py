@@ -70,7 +70,7 @@ urlpatterns = [
     path('visitOperation/<str:pk>/delete/',views.visitOperationRetrieveUpdateDelete.as_view(), name="visitOperation-delete") ,
 
     path('patient/<str:pk>/visits/', views.userVisits.as_view(), name="user visits"),
-
+    path('visit/<str:pk>/visitOperation/', views.VisitVisit_Operations.as_view(), name="user visits"),
     path('sms/broadcast/',views.SendBroadcastSMSPatient.as_view(),name="Send sms to 1 person"),
     path('sms/patient/<str:pk>/',views.SendPrivateSMSPatient.as_view(),name="Send sms to 1 person"),
     #path('test/',views.FilterAppointement.as_view())
