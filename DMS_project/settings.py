@@ -31,7 +31,7 @@ if os.path.isfile(dotenv_file):
 SECRET_KEY = os.environ['SECRET_KEY'] 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True #changed when hosted in heroku
+DEBUG = False #changed when hosted in heroku
 
 ALLOWED_HOSTS = ["*"]
 
@@ -78,7 +78,7 @@ ROOT_URLCONF = 'DMS_project.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -208,8 +208,9 @@ SIMPLE_JWT = {
 AUTH_USER_MODEL ='api.user'
 
 EMAIL_BACKEND ="django.core.mail.backends.smtp.EmailBackend"
+ACCOUNT_ACTIVATION_DAYS=7
 EMAIL_HOST = "smtp.gmail.com"
-EMAIL_USE_TLS = True
+EMAIL_USE_TLS = 1
 EMAIL_PORT = 587
 EMAIL_HOST_USER = os.environ['EMAIL_USERNAME']
 EMAIL_HOST_PASSWORD = os.environ['EMAIL_PASSWORD']
