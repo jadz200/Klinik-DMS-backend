@@ -51,11 +51,11 @@ class UserAdmin(admin.ModelAdmin):
     def get_changeform_initial_data(self, request):
         return {'password':BaseUserManager().make_random_password()}
     
-    def get_readonly_fields(self, request, obj=None):
-        if obj:
-            return ['password']
-        else:
-            return []
+    #def get_readonly_fields(self, request, obj=None):
+    #    if obj:
+    #        return ['password']
+    #    else:
+    #        return []
 
 @admin.register(Patient)
 class PatientAdmin(admin.ModelAdmin):
