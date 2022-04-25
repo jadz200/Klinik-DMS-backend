@@ -1,3 +1,4 @@
+from pickle import FALSE
 from django.conf import settings
 from django.db import models
 from djmoney.models.fields import MoneyField
@@ -23,7 +24,7 @@ class Role(models.Model):
 
 class UserManager(UserManager):
 
-    def create_user(self, email, password=None):
+    def create_user(self, email, password=None,is_staff=False,is_admin=False):
         """
         Creates and saves a User with the given email and password.
         """
@@ -33,11 +34,13 @@ class UserManager(UserManager):
         user = self.model(
             email=self.normalize_email(email),
         )
-
+        user.is_staff=is_staff
+        user.is_admin=is_admin
         user.set_password(password)
         user.save(using=self._db)
         return user
-
+    def create_staffuser(self,email,password=None):
+        user=self.create_user(email,password,is_staff=True,is_admin=True)
     def create_superuser(self, email, password):
         """
         Creates and saves a superuser with the given email and password.

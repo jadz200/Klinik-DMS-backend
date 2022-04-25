@@ -22,10 +22,12 @@ class UserForm(forms.ModelForm):
     
     class Meta:
         model = User
-        fields = ('first_name', 'last_name','email','phone','clinicID','roleID','password')
+        fields = ('first_name', 'last_name','email','phone','clinicID','roleID','password','is_admin','is_staff')
+    
     def save(self, commit=True):
         user = super(UserForm, self).save(commit=False)
         user.set_password(self.cleaned_data["password"])
+
         message="Welcome to Klinic DMS, your password is :"+self.cleaned_data['password']+"\n Hope to see you at work"
         send_mail(
             'Welcome to Klinik DMS',
