@@ -11,7 +11,7 @@ app = Celery('DMS_project')
 app.config_from_object('django.conf:settings', namespace='CELERY')
 
 app.conf.beat_schedule = {
-    'remind-every-1-hour': {
+    'remind-every-1-day': {
         'task': 'api.tasks.remindpatients',
         'schedule': 1.0
     }

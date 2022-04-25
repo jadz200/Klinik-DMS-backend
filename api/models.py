@@ -95,7 +95,6 @@ class User(AbstractBaseUser,PermissionsMixin):
 
 
 class Patient(models.Model):
-    ClinicID=models.ForeignKey(Clinic,on_delete=models.CASCADE,verbose_name="Clinic")
     first_name= models.CharField(max_length=20 ,  null = False)
     last_name= models.CharField(max_length=20,  null = False)
     phone = models.CharField(null=False,max_length=100)
