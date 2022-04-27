@@ -161,7 +161,7 @@ class Visit(models.Model):
     roomID=models.ForeignKey(Room, on_delete=models.CASCADE,null=False,verbose_name="Room")
     date=models.DateTimeField(auto_now_add=True)
     cost=MoneyField(decimal_places=2,default=0, default_currency='USD', max_digits=12,)
-    comments= models.CharField(max_length=512,  null = True )
+    comments= models.CharField(max_length=512,  null = True, blank=True )
     created_at = models.DateTimeField(auto_now_add=True)
     def __str__(self):
         return str(self.date)[0:16]+" "+str(self.patientID)+" "
