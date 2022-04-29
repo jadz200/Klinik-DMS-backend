@@ -73,7 +73,6 @@ urlpatterns = [
     path('visit/<str:pk>/visitOperation/', views.VisitVisit_Operations.as_view(), name="user visits"),
     path('sms/broadcast/',views.SendBroadcastSMSPatient.as_view(),name="Send sms to 1 person"),
     path('sms/patient/<str:pk>/',views.SendPrivateSMSPatient.as_view(),name="Send sms to 1 person"),
-    #path('test/',views.FilterAppointement.as_view())
 
 ]
 urlpatterns = format_suffix_patterns(urlpatterns)
