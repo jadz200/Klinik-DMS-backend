@@ -66,29 +66,6 @@ class appointmentCreateList(generics.ListCreateAPIView):
 class appointmentRetrieveUpdateDelete(generics.RetrieveUpdateDestroyAPIView):
     queryset = Appointment.objects.all()
     serializer_class = AppointmentSerializer
-    
-    
-
-#JournalEntryType views
-class journalEntryTypeCreateList(generics.ListCreateAPIView):
-    queryset = JournalEntryType.objects.all()
-    serializer_class = JournalEntryTypeSerializer
-    
-
-class journalEntryTypeRetrieveUpdateDelete(generics.RetrieveUpdateDestroyAPIView):
-    queryset = JournalEntryType.objects.all()
-    serializer_class = JournalEntryTypeSerializer
-
-#PaymentJournal views
-class paymentJournalCreateList(generics.ListCreateAPIView):
-    queryset = PaymentJournal.objects.all()
-    serializer_class = PaymentJournalSerializer
-    
-
-class paymentJournalRetrieveUpdateDelete(generics.RetrieveUpdateDestroyAPIView):
-    queryset = PaymentJournal.objects.all()
-    serializer_class = PaymentJournalSerializer
-
 
 #Visit views
 

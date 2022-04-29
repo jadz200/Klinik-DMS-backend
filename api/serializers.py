@@ -34,18 +34,6 @@ class AppointmentSerializer(serializers.ModelSerializer):
         model= Appointment
         fields='__all__'
 
-class JournalEntryTypeSerializer(serializers.ModelSerializer):
-    class Meta:
-        model= JournalEntryType
-        fields='__all__'
-        
-
-class PaymentJournalSerializer(serializers.ModelSerializer):
-    class Meta:
-        model= PaymentJournal
-        fields='__all__'
-
-
 class VisitSerializer(serializers.ModelSerializer):
     class Meta:
         model= Visit

@@ -40,18 +40,6 @@ urlpatterns = [
     path('appointment/<str:pk>/',       views.appointmentRetrieveUpdateDelete.as_view(), name="appointment-detail") ,
     path('appointment/<str:pk>/update/',views.appointmentRetrieveUpdateDelete.as_view(), name="appointment-update") ,
     path('appointment/<str:pk>/delete/',views.appointmentRetrieveUpdateDelete.as_view(), name="appointment-delete") ,
-
-    path('journalEntryType/',                views.journalEntryTypeCreateList.as_view(), name="journalEntryType-list") ,
-    path('journalEntryType/create/',         views.journalEntryTypeCreateList.as_view(), name="journalEntryType-create") ,
-    path('journalEntryType/<str:pk>/',       views.journalEntryTypeRetrieveUpdateDelete.as_view(), name="journalEntryType-detail") ,
-    path('journalEntryType/<str:pk>/update/',views.journalEntryTypeRetrieveUpdateDelete.as_view(), name="journalEntryType-update") ,
-    path('journalEntryType/<str:pk>/delete/',views.journalEntryTypeRetrieveUpdateDelete.as_view(), name="journalEntryType-delete") ,
-
-    path('paymentJournal/',                views.paymentJournalCreateList.as_view(), name="paymentJournal-list") ,
-    path('paymentJournal/create/',         views.paymentJournalCreateList.as_view(), name="paymentJournal-create") ,
-    path('paymentJournal/<str:pk>/',       views.paymentJournalRetrieveUpdateDelete.as_view(), name="paymentJournal-detail") ,
-    path('paymentJournal/<str:pk>/update/',views.paymentJournalRetrieveUpdateDelete.as_view(), name="paymentJournal-update") ,
-    path('paymentJournal/<str:pk>/delete/',views.paymentJournalRetrieveUpdateDelete.as_view(), name="paymentJournal-delete") ,
     
     path('visit/',                views.visitCreateList.as_view(), name="visit-list") ,
     path('visit/create/',         views.visitCreateList.as_view(), name="visit-create") ,
