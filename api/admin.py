@@ -2,7 +2,6 @@ from datetime import timedelta
 from django.contrib import admin
 from django import forms
 from django.contrib.auth.models import BaseUserManager
-from pytz import timezone
 from api.models import Appointment, Clinic, Operation, Patient, Role, Room, User, Visit, Visit_Operation
 from django.core.mail import send_mail
 from django.conf  import settings
