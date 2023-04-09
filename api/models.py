@@ -1,7 +1,6 @@
 from pickle import FALSE
 from django.conf import settings
 from django.db import models
-from djmoney.models.fields import MoneyField
 from datetime import datetime
 from django.contrib.auth.models import AbstractBaseUser,UserManager, PermissionsMixin
 
@@ -28,6 +27,7 @@ class UserManager(UserManager):
         """
         Creates and saves a User with the given email and password.
         """
+        print("test")
         if not email:
             raise ValueError('Users must have an email address')
 
@@ -132,7 +132,7 @@ class Appointment(models.Model):
 
 class Operation(models.Model):
     title=models.CharField(max_length=50 ,verbose_name="Operation")
-    cost=MoneyField(decimal_places=2, default_currency='USD', max_digits=12,verbose_name="Default Price")
+    cost=models.DecimalField(decimal_places=2,  max_digits=12,verbose_name="Default Price")
     def __str__(self):
         return self.title
 
@@ -142,7 +142,7 @@ class Visit(models.Model):
     doctorID=models.ForeignKey(User, on_delete=models.CASCADE,null=True, verbose_name="Doctor")
     roomID=models.ForeignKey(Room, on_delete=models.CASCADE,null=False,verbose_name="Room")
     date=models.DateTimeField(auto_now_add=True)
-    cost=MoneyField(decimal_places=2,default=0, default_currency='USD', max_digits=12,)
+    cost=models.DecimalField(decimal_places=2,default=0,  max_digits=12,)
     comments= models.CharField(max_length=512,  null = True, blank=True )
     created_at = models.DateTimeField(auto_now_add=True)
     def __str__(self):
@@ -150,5 +150,5 @@ class Visit(models.Model):
 
 class Visit_Operation(models.Model):
     operation=models.ForeignKey(Operation,on_delete=models.CASCADE,null= True)    
-    cost=MoneyField(decimal_places=2, default_currency='USD', max_digits=12,verbose_name="Price")
+    cost=models.DecimalField(decimal_places=2,  max_digits=12,verbose_name="Price")
     visitID=models.ForeignKey(Visit, on_delete=models.CASCADE)

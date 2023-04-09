@@ -48,12 +48,10 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     # apps
     "api.apps.ApiConfig",
-    "account",
     # added throught pip installs
     "corsheaders",
     "rest_framework",
     "rest_framework_simplejwt.token_blacklist",
-    "djmoney",
 ]
 
 MIDDLEWARE = [
