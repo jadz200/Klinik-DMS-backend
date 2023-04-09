@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     # apps
+    'account',
     "api.apps.ApiConfig",
     # added throught pip installs
     "corsheaders",
