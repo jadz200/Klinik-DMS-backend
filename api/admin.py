@@ -26,14 +26,14 @@ class UserForm(forms.ModelForm):
         user = super(UserForm, self).save(commit=False)
         user.set_password(self.cleaned_data["password"])
 
-        message="Welcome to Klinic DMS, your credentials to log in to the system are :\n email : "+self.cleaned_data["email"]+"\npassword :"+self.cleaned_data['password']+"\n Hope to see you at work soon!"
-        send_mail(
-            'On boarding mail',
-            message,
-            settings.EMAIL_HOST_USER ,
-            [self.cleaned_data['email']],
-            fail_silently=False
-            )
+        # message="Welcome to Klinic DMS, your credentials to log in to the system are :\n email : "+self.cleaned_data["email"]+"\npassword :"+self.cleaned_data['password']+"\n Hope to see you at work soon!"
+        # send_mail(
+        #     'On boarding mail',
+        #     message,
+        #     settings.EMAIL_HOST_USER ,
+        #     [self.cleaned_data['email']],
+        #     fail_silently=False
+        #     )
         if commit:
             user.save()
         return user

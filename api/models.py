@@ -77,7 +77,7 @@ class User(AbstractBaseUser,PermissionsMixin):
     created_at = models.DateTimeField(auto_now_add=True)
     last_login= models.DateTimeField(auto_now_add=True)
     USERNAME_FIELD = 'email'
-
+    print("test")
 
     def get_full_name(self):
         return self.first_name+" "+self.last_name
