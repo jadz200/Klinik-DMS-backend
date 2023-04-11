@@ -34,6 +34,7 @@ SECRET_KEY = os.environ["SECRET_KEY"]
 DEBUG = True  # changed when hosted in heroku
 
 ALLOWED_HOSTS = ["*"]
+CSRF_TRUSTED_ORIGINS = ['*']
 
 
 # Application definition
